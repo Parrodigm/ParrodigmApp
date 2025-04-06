@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Parrot - The Voice Agent",
-  description: "Parrot - The Voice Agent",
+  title: "Parradigm - The Voice Agent",
+  description: "Parradigm - The Voice Agent",
 };
 
 export default function RootLayout({
