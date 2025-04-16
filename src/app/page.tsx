@@ -27,7 +27,7 @@ export default function Home() {
             fontWeight: "bold",
           })}
         >
-          parradigm
+          parrodigm
         </div>
       </div>
       <div className={css({ padding: "1em", fontSize: "2em" })}>

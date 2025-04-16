@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Parradigm - The Voice Agent",
-  description: "Parradigm - The Voice Agent",
+  title: "Parrodigm - The Voice Agent",
+  description: "Parrodigm - The Voice Agent",
 };
 
 export default function RootLayout({
