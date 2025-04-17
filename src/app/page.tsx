@@ -1,18 +1,9 @@
-import { css } from "../../styled-system/css";
+import { Flex } from "@/../../styled-system/jsx";
 
 export default function Home() {
   return (
-    <div
-      className={css({ display: "flex", flexDirection: "column", gap: "3em" })}
-    >
-      <div
-        className={css({
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "1em",
-        })}
-      ></div>
-    </div>
+    <Flex direction="column" gap="3em">
+      <Flex justify="center" align="center" gap="1em"></Flex>
+    </Flex>
   );
 }
