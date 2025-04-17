@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Box, Flex, HStack } from "../../../styled-system/jsx";
+import { Box, Flex, HStack } from "@/styled-system/jsx";
 import { StarRate } from "./StarRate";
 
 interface ProductDetailCardProps {
@@ -7,6 +7,7 @@ interface ProductDetailCardProps {
   title: string;
   rating: number;
   price: number;
+  id: number;
 }
 
 export const ProductDetailCard = ({
@@ -14,6 +15,7 @@ export const ProductDetailCard = ({
   title,
   rating,
   price,
+  id,
 }: ProductDetailCardProps) => {
   return (
     <Flex
@@ -34,7 +36,14 @@ export const ProductDetailCard = ({
         borderBottomLeftRadius="xl"
         overflow="hidden"
       >
-        <Image src={imageUrl} alt={title} fill style={{ objectFit: "cover" }} />
+        <Image
+          src={imageUrl}
+          alt={title}
+          fill
+          style={{ objectFit: "cover" }}
+          priority
+          sizes="(max-width: 100px) 100vw, 33vw"
+        />
       </Box>
 
       <Flex direction="column" flex="1" justify="center" gap="1" minWidth={0}>

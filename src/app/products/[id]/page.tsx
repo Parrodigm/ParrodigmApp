@@ -2,6 +2,14 @@
 import { ProductDetailCard } from "@/src/components/product/ProductDetailCard";
 import { Text } from "@/src/components/Text";
 import { Flex } from "@/styled-system/jsx";
+
+interface CartItem {
+  item: {
+    id: number;
+  };
+  quantity: number;
+}
+
 const products = [
   {
     id: 2,

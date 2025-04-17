@@ -1,6 +1,6 @@
 "use client";
 
-import { styled } from "../../../styled-system/jsx";
+import { styled } from "@/styled-system/jsx";
 
 const Button = styled("button", {
   base: {
@@ -35,11 +35,16 @@ const Button = styled("button", {
           backgroundColor: "#2563eb",
         },
       },
-      ghost: {
-        backgroundColor: "transparent",
-        color: "#374151",
+      start: {
+        backgroundColor: "#6294FF",
+        color: "white",
+        borderRadius: "10rem",
+        width: "300px",
+        transition: "all 0.3s ease",
         _hover: {
           backgroundColor: "#f3f4f6",
+          backdropFilter: "blur(4px)",
+          color: "#6294FF",
         },
       },
       icon: {
@@ -50,6 +55,14 @@ const Button = styled("button", {
           backgroundColor: "#d1d5db",
         },
       },
+
+      noBackground: {
+        padding: "0.5rem",
+        _hover: {
+          backgroundColor: "#d1d5db",
+        },
+      },
+
       back: {
         backgroundColor: "#ef4444",
         color: "white",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { css } from "../../styled-system/css";
 import "./globals.css";
-import { Header } from "@/components/Header";
+import { Header } from "@/src/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,17 +36,20 @@ export default function RootLayout({
         }
       >
         <div
-          className={css({
-            display: "flex",
-            margin: "0 auto",
-            width: "100%",
-            height: "100%",
-            maxWidth: "430px",
-            maxHeight: "900px",
-            backgroundColor: "white",
-            flexDirection: "column",
-            overflowY: "auto",
-          })}
+          className={
+            css({
+              display: "flex",
+              margin: "0 auto",
+              width: "100%",
+              height: "100%",
+              maxWidth: "430px",
+              maxHeight: "1000px",
+              paddingBottom: "30px",
+              backgroundColor: "white",
+              flexDirection: "column",
+              overflowY: "auto",
+            }) + " app-background-animated"
+          }
         >
           <Header />
           {children}

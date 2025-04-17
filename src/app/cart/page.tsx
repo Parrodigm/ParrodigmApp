@@ -1,7 +1,9 @@
 "use client";
 import { ProductDetailCard } from "@/src/components/product/ProductDetailCard";
-import { Text } from "@/src/components/Text";
 import { Flex } from "@/styled-system/jsx";
+import { useLocalStorage } from "usehooks-ts";
+import { CartItem } from "../products/[id]/layout";
+
 const products = [
   {
     id: 2,
@@ -15,21 +17,20 @@ const products = [
   },
 ];
 
-export default function Results() {
+export default function Basket() {
+  const [cartList, setCartList] = useLocalStorage<CartItem[]>("cartList", []);
+  console.log(cartList);
   return (
     <Flex direction="column" gap="28px" align="center">
-      <ProductDetailCard
-        id={products[0].id}
-        imageUrl={products[0].image_url}
-        title={products[0].name}
-        rating={products[0].rating}
-        price={products[0].price}
-      />
-      <Text color="#6294FF" fontSize="2xl" fontWeight="bold" textAlign="center">
-        This strawberry dog outfit features a soft, breathable fabric with an
-        adorable red-and-green design, complete with tiny leaf accents. Perfect
-        for photos, playdates, or turning heads on daily walks!
-      </Text>
+      {cartList.map((el) => (
+        <ProductDetailCard
+          id={el.item.id}
+          imageUrl={products[0].image_url}
+          title={products[0].name}
+          rating={products[0].rating}
+          price={products[0].price}
+        />
+      ))}
     </Flex>
   );
 }

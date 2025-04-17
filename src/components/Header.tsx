@@ -4,21 +4,25 @@ import { usePathname } from "next/navigation";
 import { css } from "@/../../styled-system/css";
 import Logo from "../app/parrodigm_logo.svg";
 import Setting from "../../public/setting.svg";
+import { useRouter } from "next/navigation";
 
 export const Header = () => {
   const pathname = usePathname();
   const showSetting = pathname !== "/select";
-
+  const router = useRouter();
+  const handleSettingClick = () => {
+    router.push("/");
+  };
   return (
     <div
       className={css({
         display: "flex",
         justifyContent: "space-between",
         padding: "25px",
-        marginTop: "55px",
+        marginTop: "30px",
       })}
     >
-      <Logo className={css({ width: "10em" })} />
+      <Logo className={css({ width: "10em" })} onClick={handleSettingClick} />
       {showSetting && (
         <Setting
           className={css({

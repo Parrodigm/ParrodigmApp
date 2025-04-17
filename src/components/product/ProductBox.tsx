@@ -1,5 +1,5 @@
 import { ProductCard } from "./ProductCard";
-import { Grid } from "../../../styled-system/jsx"; // Changed SimpleGrid to Grid
+import { Grid } from "@/styled-system/jsx"; // Changed SimpleGrid to Grid
 
 const products = [
   {
@@ -49,12 +49,13 @@ export const ProductBox = () => {
     <Grid columns={2} gap="4" px="20px">
       {products.map((product, index) => (
         <ProductCard
-          key={product.id} // 또는 product.id가 있으면 id를 key로!
+          key={product.id}
+          id={product.id}
           index={index + 1}
           imageUrl={product.image_url}
           title={product.name}
           rating={product.rating}
-          price={product.price} // or product.price depending on your field
+          price={product.price}
         />
       ))}
     </Grid>

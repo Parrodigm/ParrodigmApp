@@ -1,5 +1,5 @@
 // src/components/StarRating.tsx
-import { Box } from "../../../styled-system/jsx";
+import { Box } from "@/styled-system/jsx";
 import HalfStar from "../../../public/halfStar.svg";
 
 type StarType = "full" | "half" | "empty";
