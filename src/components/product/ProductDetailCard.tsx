@@ -41,7 +41,6 @@ export const ProductDetailCard = ({
           alt={title}
           fill
           style={{ objectFit: "cover" }}
-          priority
           sizes="(max-width: 100px) 100vw, 33vw"
         />
       </Box>
