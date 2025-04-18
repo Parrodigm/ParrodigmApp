@@ -16,7 +16,6 @@ type ButtonBarProps =
   | {
       type: "cart";
       onBuy: () => void;
-      onBasket: () => void;
       onClickX: () => void;
     };
 
