@@ -29,6 +29,7 @@ export default function ProductLayout({
 
   const [cartList, setCartList] = useLocalStorage<CartItem[]>("cartList", []);
 
+  //장바구니 로직
   const handleAddToCart = (itemId: number) => {
     // 이미 아이템 들어 있으면 오른쪽 장바구니버튼 숫자만 +1 해주는 것
     if (cartList.some((el) => el.item.id === itemId)) {
@@ -57,7 +58,7 @@ export default function ProductLayout({
         onBuy={() => {}}
         onAddToCart={() => handleAddToCart(itemId)}
         onBasket={handleBasketClick}
-        cartCount={cartList.length}
+        cartCount={cartList.reduce((acc, el) => acc + el.quantity, 0)}
       />
     </Flex>
   );
