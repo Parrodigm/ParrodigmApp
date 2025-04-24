@@ -1,4 +1,4 @@
-@keyframes gradientMove {
+/* @keyframes gradientMove {
   0% {
     background-position: 0% 50%;
   }
@@ -14,7 +14,7 @@
   background: linear-gradient(
     315deg,
     #fffff1,
-    /* #1883e0, */ #ffffff,
+    #1883e0,  #ffffff,
     #dae6ff,
     #cbeeff,
     #aec8ff,
@@ -23,6 +23,6 @@
   );
   background-size: 300% 300%;
   animation: gradientMove 20s ease infinite;
-}
+} */
 
 @layer reset, base, tokens, recipes, utilities;

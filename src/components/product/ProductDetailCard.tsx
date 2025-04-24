@@ -26,6 +26,7 @@ export const ProductDetailCard = ({
       width="full"
       maxW="md"
       height="80px"
+      shadow="md"
     >
       <Box
         flexShrink={0}

@@ -29,6 +29,7 @@ export const ProductCard = ({
         borderRadius="xl"
         width="100%"
         height={245}
+        shadow="md"
       >
         <Box position="relative" width="100%" height="175px" overflow="hidden">
           <Image
