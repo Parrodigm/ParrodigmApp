@@ -12,6 +12,7 @@ interface CartProductCardProps {
   rating: number;
   price: number;
   id: number;
+  index: number;
 }
 
 export default function CartProductCard({
@@ -20,6 +21,7 @@ export default function CartProductCard({
   rating,
   price,
   id,
+  index,
 }: CartProductCardProps) {
   const [cartList, setCartList] = useLocalStorage<CartItem[]>("cartList", []);
   const [totalPrice, setTotalPrice] = useState(price);
@@ -94,7 +96,7 @@ export default function CartProductCard({
             fontWeight="500"
             fontSize="15px"
           >
-            {id}
+            {index + 1}
           </Flex>
           <VStack alignItems="start" gap="0" width="100%">
             <div

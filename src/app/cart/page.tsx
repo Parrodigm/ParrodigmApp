@@ -46,7 +46,7 @@ export default function Basket() {
             width="100%"
             marginTop="20px"
           >
-            {cartList.map((el) => {
+            {cartList.map((el, index) => {
               const itemId = el.item.id;
               return (
                 <CartProductCard
@@ -56,6 +56,7 @@ export default function Basket() {
                   title={products[itemId - 1].name}
                   rating={products[itemId - 1].rating}
                   price={products[itemId - 1].price}
+                  index={index}
                 />
               );
             })}
