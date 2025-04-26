@@ -1,49 +1,50 @@
-import { css } from "../../styled-system/css";
-
-import LogoImage from "./logo.svg";
-
-import { LineEdit } from "@/components/LineEdit";
-import { Button } from "@/components/Button";
+"use client";
+import { Flex } from "@/styled-system/jsx";
+import Button from "@/src/components/Button/Button";
+import { Text } from "@/src/components/Text";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const [hover, setHover] = useState(false);
+  const router = useRouter();
+  const onClick = () => {
+    router.push("/tutorial");
+  };
   return (
-    <div
-      className={css({ display: "flex", flexDirection: "column", gap: "3em" })}
+    <Flex
+      direction="column"
+      justify="center"
+      align="center"
+      height="100%"
+      gap="4em"
+      padding="0 20px"
     >
-      <div
-        className={css({
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "0.5em",
-          padding: "1em 0",
-        })}
+      <Text
+        textAlign="center"
+        fontSize="3xl"
+        fontWeight="light"
+        color="#93C5F1"
       >
-        <LogoImage className={css({ width: "3em", fill: "#1883E0" })} />
-        <div
-          className={css({
-            color: "#1883E0",
-            fontSize: "2em",
-            fontWeight: "bold",
-          })}
-        >
-          parrodigm
-        </div>
-      </div>
-      <div className={css({ padding: "1em", fontSize: "2em" })}>
-        Hello World!
-      </div>
-      <div
-        className={css({
-          display: "flex",
-          flexDirection: "column",
-          gap: "1em",
-          padding: "1em",
-        })}
+        Hey there!
+        <br /> I can help you{" "}
+        <Text fontWeight="bold" color="#6294FF">
+          find products, track orders, or answer quick questions-all by
+          voice.{" "}
+        </Text>{" "}
+        Would you like to try{" "}
+        <Text fontWeight="bold" color="#6294FF">
+          voice mode?
+        </Text>
+      </Text>
+      <Button
+        variant="start"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        onClick={onClick}
       >
-        <LineEdit type="text" placeholder="Placeholder" />
-        <Button>Button</Button>
-      </div>
-    </div>
+        {hover ? "Yes, let's try it!" : "Google"}
+      </Button>
+    </Flex>
   );
 }
