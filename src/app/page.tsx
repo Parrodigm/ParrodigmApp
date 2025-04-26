@@ -4,6 +4,7 @@ import Button from "@/src/components/Button/Button";
 import { Text } from "@/src/components/Text";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
 export default function Home() {
   const [hover, setHover] = useState(false);
   const router = useRouter();

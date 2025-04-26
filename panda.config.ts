@@ -18,4 +18,7 @@ export default defineConfig({
 
   // The output directory for your css system
   outdir: "styled-system",
+
+  // Enable jsx style props
+  jsxFramework: "react",
 });
