@@ -28,11 +28,17 @@ export const ButtonBar = (props: ButtonBarProps) => {
 
   return (
     <HStack justify="space-evenly">
-      <Button onClick={props.onBuy}> Buy Now</Button>
-
+      {isCart && ( // 장바구니에 있는 버튼
+        <Button width="70%" onClick={props.onBuy}>
+          Buy Now
+        </Button>
+      )}
+      {/* 장바구니를 제외한 화면에 위치한 Buy Now 버튼 */}
+      {!isCart && <Button onClick={props.onBuy}> Buy Now</Button>}
       {!isCart && <Button onClick={props.onAddToCart!}>Add to Cart</Button>}
 
       <Box position="relative">
+        {" "}
         {isCart ? (
           <Button variant="noBackground" onClick={props.onClickX}>
             <X />

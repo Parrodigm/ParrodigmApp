@@ -29,7 +29,7 @@ export const ProductCard = ({
         borderRadius="xl"
         width="100%"
         height={260}
-        shadow="md"
+        shadow="0 2px 1px 0 rgba(0, 0, 0, 0.13)"
       >
         <Box position="relative" width="100%" height="175px" overflow="hidden">
           <Image
@@ -65,27 +65,29 @@ export const ProductCard = ({
               // position="absolute"
               // top="2"
               // left="2"
-              marginStart="1"
-              marginTop="1"
-              width="6"
-              height="6"
+              marginStart="8px"
+              marginTop="8px"
+              width="4"
+              height="4"
               bg="blue.500"
-              px="3"
+              p="3"
               borderRadius="full"
               align="center"
               justify="center"
               color="white"
-              fontWeight="bold"
-              fontSize="sm"
+              fontWeight="500"
+              fontSize="15px"
             >
               {index}
             </Flex>
             <VStack alignItems="start" gap="0">
               <Box
-                fontWeight="semibold"
+                fontWeight="600"
                 fontSize="15px"
+                lineHeight="1.2"
                 color="#6294FF"
-                px="2"
+                px="5px"
+                py="1"
                 // whiteSpace="nowrap"
                 // overflow="hidden"
                 // textOverflow="ellipsis"
@@ -94,7 +96,7 @@ export const ProductCard = ({
               >
                 {title.length > 10 ? title.slice(0, 25) + "..." : title}
               </Box>
-              <Box px="2">
+              <Box px="3px">
                 <StarRate rating={rating} />
               </Box>
             </VStack>
@@ -116,8 +118,8 @@ export const ProductCard = ({
             <StarRate rating={rating} />
           </Box> */}
           <Box
-            fontSize="sm"
-            fontWeight="semibold"
+            fontSize="16px"
+            fontWeight="500"
             color="#6294FF"
             alignSelf="flex-end"
             // marginTop="1"

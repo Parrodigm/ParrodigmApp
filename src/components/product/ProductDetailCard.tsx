@@ -26,8 +26,8 @@ export const ProductDetailCard = ({
       width="full"
       flexDir="column"
       maxW="md"
-      height="360px"
-      shadow="md"
+      height="370px"
+      shadow="0 2px 1px 0 rgba(0, 0, 0, 0.13)"
     >
       <Box
         flexShrink={0}
@@ -50,8 +50,8 @@ export const ProductDetailCard = ({
       <Flex direction="column" flex="1" justify="center" gap="0" minWidth={0}>
         <HStack alignItems="start" gap="1.5">
           <Flex
-            marginStart="1"
-            // marginTop="1"
+            marginStart="2"
+            marginTop="2"
             width="6"
             height="6"
             bg="blue.500"
@@ -67,14 +67,16 @@ export const ProductDetailCard = ({
           </Flex>
           <VStack alignItems="start" gap="0">
             <Box
-              fontWeight="semibold"
-              fontSize="md"
+              fontWeight="600"
+              fontSize="17px"
               color="#6294FF"
               // whiteSpace="nowrap"
               // overflow="hidden"
               // textOverflow="ellipsis"
               width="78%"
               display="block"
+              py="1"
+              lineHeight="1.2"
             >
               {/* {title.length > 10 ? title.slice(0, 40) + "..." : title} */}
               {title}
@@ -100,7 +102,7 @@ export const ProductDetailCard = ({
         <StarRate rating={rating} /> */}
 
         <HStack justify="end" gap="2">
-          <Box fontSize="lg" color="#6294FF" fontWeight="bold" mr="3">
+          <Box fontSize="21px" color="#6294FF" fontWeight="500" mr="3">
             ${price.toFixed(2)}
           </Box>
         </HStack>

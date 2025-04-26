@@ -21,7 +21,7 @@ export default function ProductLayout({
   return (
     <Flex
       height="100%"
-      padding="0 20px"
+      // padding="0 20px"
       direction="column"
       justify="space-between"
       paddingBottom="10"

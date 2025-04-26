@@ -70,22 +70,19 @@ const Button = styled("button", {
           backgroundColor: "#dc2626",
         },
       },
-
-      cartQuantity: {
-        backgroundColor: "#6294FF",
+      circle: {
+        backgroundColor: "#A0BEFF",
         color: "white",
-        // _hover: {
-        //   backgroundColor: "#2563eb",
-        // },
-        width: "6",
-        height: "6",
-        bg: "blue.500",
-        px: "3",
         borderRadius: "full",
-        align: "center",
-        justify: "center",
-        fontWeight: "bold",
-        fontSize: "sm",
+        fontSize: "0.75rem",
+        fontWeight: "600",
+        width: "15px",
+        height: "15px",
+        padding: "0",
+        _hover: {
+          backgroundColor: "#6294FF",
+          // transform: "scale(1.05)",
+        },
       },
     },
   },
