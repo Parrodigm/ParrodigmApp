@@ -65,41 +65,35 @@ export const ProductDetailCard = ({
           >
             {id}
           </Flex>
-          <VStack alignItems="start" gap="0">
-            <Box
-              fontWeight="600"
-              fontSize="17px"
-              color="#6294FF"
-              // whiteSpace="nowrap"
-              // overflow="hidden"
-              // textOverflow="ellipsis"
-              width="78%"
-              display="block"
-              py="1"
-              lineHeight="1.2"
+          <VStack alignItems="start" gap="0" width="100%">
+            <div
+              style={{
+                width: "100%",
+                height: "29px",
+                position: "relative",
+              }}
             >
-              {/* {title.length > 10 ? title.slice(0, 40) + "..." : title} */}
-              {title}
-            </Box>
-            <Box px="0">
+              <Box
+                position="absolute"
+                fontWeight="600"
+                fontSize="17px"
+                color="#6294FF"
+                whiteSpace="nowrap"
+                overflow="hidden"
+                textOverflow="ellipsis"
+                width="100%"
+                display="block"
+                p={1}
+                lineHeight="1.2"
+              >
+                {title}
+              </Box>
+            </div>
+            <Box px="1" height="12px">
               <StarRate rating={rating} />
             </Box>
           </VStack>
         </HStack>
-        {/* <Box
-          fontWeight="semibold"
-          fontSize="sm"
-          color="#6294FF"
-          whiteSpace="nowrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          width="100%"
-          mt="1"
-        >
-          {title}
-        </Box>
-
-        <StarRate rating={rating} /> */}
 
         <HStack justify="end" gap="2">
           <Box fontSize="21px" color="#6294FF" fontWeight="500" mr="3">
