@@ -11,6 +11,8 @@ const Button = styled("button", {
     borderRadius: "0.75rem",
     fontWeight: "500",
     transition: "all 0.2s",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
   },
   variants: {
     size: {
@@ -68,6 +70,20 @@ const Button = styled("button", {
         color: "white",
         _hover: {
           backgroundColor: "#dc2626",
+        },
+      },
+      circle: {
+        backgroundColor: "#A0BEFF",
+        color: "white",
+        borderRadius: "full",
+        fontSize: "0.75rem",
+        fontWeight: "600",
+        width: "12px",
+        height: "9px",
+        padding: "0",
+        _hover: {
+          backgroundColor: "#6294FF",
+          // transform: "scale(1.05)",
         },
       },
     },

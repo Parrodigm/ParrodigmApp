@@ -4,8 +4,6 @@ import { ButtonBar } from "@/src/components/Button/ButtonBar";
 import { Flex } from "@/styled-system/jsx";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
-import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
 export interface CartItem {

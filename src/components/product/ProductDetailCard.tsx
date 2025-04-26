@@ -26,17 +26,16 @@ export const ProductDetailCard = ({
       width="full"
       flexDir="column"
       maxW="md"
-      height="40vh"
-      shadow="md"
+      height="370px"
+      shadow="0 2px 1px 0 rgba(0, 0, 0, 0.13)"
     >
       <Box
         flexShrink={0}
         position="relative"
         width="100%"
-        height="290px"
+        height="75%"
         borderTopLeftRadius="xl"
         borderTopRightRadius="xl"
-        //borderBottomLeftRadius="xl"
         overflow="hidden"
       >
         <Image
@@ -51,8 +50,8 @@ export const ProductDetailCard = ({
       <Flex direction="column" flex="1" justify="center" gap="0" minWidth={0}>
         <HStack alignItems="start" gap="1.5">
           <Flex
-            marginStart="1"
-            // marginTop="1"
+            marginStart="2"
+            marginTop="2"
             width="6"
             height="6"
             bg="blue.500"
@@ -66,42 +65,38 @@ export const ProductDetailCard = ({
           >
             {id}
           </Flex>
-          <VStack alignItems="start" gap="0">
-            <Box
-              fontWeight="semibold"
-              fontSize="md"
-              color="#6294FF"
-              // whiteSpace="nowrap"
-              // overflow="hidden"
-              // textOverflow="ellipsis"
-              width="78%"
-              display="block"
+          <VStack alignItems="start" gap="0" width="100%">
+            <div
+              style={{
+                width: "100%",
+                height: "29px",
+                position: "relative",
+              }}
             >
-              {/* {title.length > 10 ? title.slice(0, 40) + "..." : title} */}
-              {title}
-            </Box>
-            <Box px="0">
+              <Box
+                position="absolute"
+                fontWeight="600"
+                fontSize="17px"
+                color="#6294FF"
+                whiteSpace="nowrap"
+                overflow="hidden"
+                textOverflow="ellipsis"
+                width="100%"
+                display="block"
+                p={1}
+                lineHeight="1.2"
+              >
+                {title}
+              </Box>
+            </div>
+            <Box px="1" height="12px">
               <StarRate rating={rating} />
             </Box>
           </VStack>
         </HStack>
-        {/* <Box
-          fontWeight="semibold"
-          fontSize="sm"
-          color="#6294FF"
-          whiteSpace="nowrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          width="100%"
-          mt="1"
-        >
-          {title}
-        </Box>
-
-        <StarRate rating={rating} /> */}
 
         <HStack justify="end" gap="2">
-          <Box fontSize="lg" color="#6294FF" fontWeight="bold" mr="3">
+          <Box fontSize="21px" color="#6294FF" fontWeight="500" mr="3">
             ${price.toFixed(2)}
           </Box>
         </HStack>
