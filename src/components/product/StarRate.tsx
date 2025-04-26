@@ -1,13 +1,15 @@
 // src/components/StarRating.tsx
 import { Box } from "@/styled-system/jsx";
-import HalfStar from "../../../public/halfStar.svg";
+// import HalfStar from "../../../public/halfStar.svg";
 
-type StarType = "full" | "half" | "empty";
+// type StarType = "full" | "half" | "empty";
+type StarType = "full" | "empty";
 const Star = ({ type }: { type: StarType }) => {
   const color = "#6294FF";
   return (
-    <Box color={color} fontSize="lg" lineHeight="1">
-      {type === "full" ? "★" : type === "half" ? <HalfStar /> : "☆"}
+    <Box color={color} fontSize="12px" lineHeight="1">
+      {/* {type === "full" ? "★" : type === "half" ? <HalfStar /> : "☆"} */}
+      {type === "full" ? "★" : "☆"}
     </Box>
   );
 };
@@ -23,9 +25,12 @@ export const StarRate = ({ rating }: { rating: number }) => {
   }
 
   if (stars.length < 5) {
-    if (decimal > 0 && decimal <= 0.5) {
-      stars.push("half");
-    } else if (decimal > 0.5) {
+    // if (decimal > 0 && decimal <= 0.5) {
+    //   stars.push("half");
+    // } else if (decimal > 0.5) {
+    //   stars.push("full");
+    // }
+    if (decimal > 0.5) {
       stars.push("full");
     }
   }

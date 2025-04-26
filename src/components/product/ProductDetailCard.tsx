@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Box, Flex, HStack } from "@/styled-system/jsx";
+import { Box, Flex, HStack, VStack } from "@/styled-system/jsx";
 import { StarRate } from "./StarRate";
 
 interface ProductDetailCardProps {
@@ -21,20 +21,22 @@ export const ProductDetailCard = ({
     <Flex
       bg="white"
       borderRadius="xl"
-      gap="2"
+      gap="0"
       align="stretch"
       width="full"
+      flexDir="column"
       maxW="md"
-      height="80px"
+      height="40vh"
       shadow="md"
     >
       <Box
         flexShrink={0}
         position="relative"
-        width="85px"
-        height="full"
+        width="100%"
+        height="290px"
         borderTopLeftRadius="xl"
-        borderBottomLeftRadius="xl"
+        borderTopRightRadius="xl"
+        //borderBottomLeftRadius="xl"
         overflow="hidden"
       >
         <Image
@@ -46,10 +48,46 @@ export const ProductDetailCard = ({
         />
       </Box>
 
-      <Flex direction="column" flex="1" justify="center" gap="1" minWidth={0}>
-        <Box
+      <Flex direction="column" flex="1" justify="center" gap="0" minWidth={0}>
+        <HStack alignItems="start" gap="1.5">
+          <Flex
+            marginStart="1"
+            // marginTop="1"
+            width="6"
+            height="6"
+            bg="blue.500"
+            px="3"
+            borderRadius="full"
+            align="center"
+            justify="center"
+            color="white"
+            fontWeight="bold"
+            fontSize="sm"
+          >
+            {id}
+          </Flex>
+          <VStack alignItems="start" gap="0">
+            <Box
+              fontWeight="semibold"
+              fontSize="md"
+              color="#6294FF"
+              // whiteSpace="nowrap"
+              // overflow="hidden"
+              // textOverflow="ellipsis"
+              width="78%"
+              display="block"
+            >
+              {/* {title.length > 10 ? title.slice(0, 40) + "..." : title} */}
+              {title}
+            </Box>
+            <Box px="0">
+              <StarRate rating={rating} />
+            </Box>
+          </VStack>
+        </HStack>
+        {/* <Box
           fontWeight="semibold"
-          fontSize="md"
+          fontSize="sm"
           color="#6294FF"
           whiteSpace="nowrap"
           overflow="hidden"
@@ -60,10 +98,10 @@ export const ProductDetailCard = ({
           {title}
         </Box>
 
-        <StarRate rating={rating} />
+        <StarRate rating={rating} /> */}
 
-        <HStack justify="end" gap="2" mt="1">
-          <Box fontSize="md" color="#6294FF" fontWeight="bold" mr="3">
+        <HStack justify="end" gap="2">
+          <Box fontSize="lg" color="#6294FF" fontWeight="bold" mr="3">
             ${price.toFixed(2)}
           </Box>
         </HStack>
