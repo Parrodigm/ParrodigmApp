@@ -78,8 +78,8 @@ const Button = styled("button", {
         borderRadius: "full",
         fontSize: "0.75rem",
         fontWeight: "600",
-        width: "15px",
-        height: "15px",
+        width: "12px",
+        height: "9px",
         padding: "0",
         _hover: {
           backgroundColor: "#6294FF",

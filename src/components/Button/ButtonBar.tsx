@@ -36,7 +36,16 @@ export const ButtonBar = (props: ButtonBarProps) => {
       )}
       {/* 장바구니를 제외한 화면에 위치한 Buy Now 버튼 */}
       {!isCart && <Button onClick={props.onBuy}> Buy Now</Button>}
-      {!isCart && <Button onClick={notify}>Add to Cart</Button>}
+      {!isCart && (
+        <Button
+          onClick={() => {
+            props.onAddToCart(); // 장바구니에 아이템 추가
+            notify(); // 토스트 띄우기
+          }}
+        >
+          Add to Cart
+        </Button>
+      )}
       <ToastContainer position="top-center" />
 
       <Box position="relative">

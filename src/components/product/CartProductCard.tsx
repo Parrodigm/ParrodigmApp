@@ -96,28 +96,37 @@ export default function CartProductCard({
           >
             {id}
           </Flex>
-          <VStack alignItems="start" gap="0" width="full">
-            <Box
-              fontWeight="semibold"
-              fontSize="md"
-              color="#6294FF"
-              // whiteSpace="nowrap"
-              // overflow="hidden"
-              // textOverflow="ellipsis"
-              display="block"
+          <VStack alignItems="start" gap="0" width="100%">
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "29px",
+              }}
             >
-              {title.length > 10 ? title.slice(0, 28) + "..." : title}
-              {/* {title} */}
-            </Box>
-            <Box px="0">
+              <Box
+                fontWeight="semibold"
+                position="absolute"
+                fontSize="md"
+                color="#6294FF"
+                whiteSpace="nowrap"
+                overflow="hidden"
+                textOverflow="ellipsis"
+                width="100%"
+                display="block"
+                paddingRight="2"
+              >
+                {title}
+              </Box>
+            </div>
+            <Box height="12px">
               <StarRate rating={rating} />
             </Box>
             <Flex justify="space-between" mt="3" width="full">
-              <Flex gap="4px">
+              <Flex gap="4px" alignItems="center">
                 <Button
                   variant="circle"
-                  fontSize="12px"
-                  marginTop="4px"
+                  fontSize="11px"
                   onClick={handleDecrease}
                 >
                   -
@@ -127,8 +136,7 @@ export default function CartProductCard({
                 </Box>
                 <Button
                   variant="circle"
-                  fontSize="12px"
-                  marginTop="4px"
+                  fontSize="11px"
                   onClick={handleIncrease}
                 >
                   +
