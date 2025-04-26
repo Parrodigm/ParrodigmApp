@@ -1,17 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // ✅ 권장 방식
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "image.chewy.com",
-        port: "",
-        pathname: "/**",
-      },
-    ],
-  },
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
