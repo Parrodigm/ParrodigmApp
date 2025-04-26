@@ -70,6 +70,23 @@ const Button = styled("button", {
           backgroundColor: "#dc2626",
         },
       },
+
+      cartQuantity: {
+        backgroundColor: "#6294FF",
+        color: "white",
+        // _hover: {
+        //   backgroundColor: "#2563eb",
+        // },
+        width: "6",
+        height: "6",
+        bg: "blue.500",
+        px: "3",
+        borderRadius: "full",
+        align: "center",
+        justify: "center",
+        fontWeight: "bold",
+        fontSize: "sm",
+      },
     },
   },
   defaultVariants: {

@@ -1,9 +1,10 @@
 "use client";
-import { ProductDetailCard } from "@/src/components/product/ProductDetailCard";
+import CartProductCard from "@/src/components/product/CartProductCard";
 import { Flex } from "@/styled-system/jsx";
 import { useLocalStorage } from "usehooks-ts";
 import { CartItem } from "../products/[id]/layout";
 import { products } from "@/src/products";
+// import { CartProductCard } from "@/src/components/product/CartProductCard";
 
 export default function Basket() {
   const [cartList, setCartList] = useLocalStorage<CartItem[]>("cartList", []);
@@ -13,7 +14,7 @@ export default function Basket() {
       {cartList.map((el) => {
         const itemId = el.item.id;
         return (
-          <ProductDetailCard
+          <CartProductCard
             key={itemId}
             id={itemId}
             imageUrl={products[itemId - 1].image_url}

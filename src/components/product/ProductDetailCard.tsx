@@ -26,17 +26,16 @@ export const ProductDetailCard = ({
       width="full"
       flexDir="column"
       maxW="md"
-      height="40vh"
+      height="360px"
       shadow="md"
     >
       <Box
         flexShrink={0}
         position="relative"
         width="100%"
-        height="290px"
+        height="75%"
         borderTopLeftRadius="xl"
         borderTopRightRadius="xl"
-        //borderBottomLeftRadius="xl"
         overflow="hidden"
       >
         <Image
