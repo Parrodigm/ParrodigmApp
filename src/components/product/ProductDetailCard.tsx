@@ -26,14 +26,14 @@ export const ProductDetailCard = ({
       width="full"
       flexDir="column"
       maxW="md"
-      height="370px"
+      height="auto"
       shadow="0 2px 1px 0 rgba(0, 0, 0, 0.13)"
     >
       <Box
         flexShrink={0}
         position="relative"
         width="100%"
-        height="75%"
+        height="330px"
         borderTopLeftRadius="xl"
         borderTopRightRadius="xl"
         overflow="hidden"
@@ -66,29 +66,20 @@ export const ProductDetailCard = ({
             {id}
           </Flex>
           <VStack alignItems="start" gap="0" width="100%">
-            <div
-              style={{
-                width: "100%",
-                height: "29px",
-                position: "relative",
-              }}
+            <Box
+              fontWeight="600"
+              fontSize="17px"
+              color="#6294FF"
+              // whiteSpace="nowrap"
+              // overflow="hidden"
+              // textOverflow="ellipsis"
+              width="100%"
+              display="block"
+              p={1}
+              lineHeight="1.2"
             >
-              <Box
-                position="absolute"
-                fontWeight="600"
-                fontSize="17px"
-                color="#6294FF"
-                whiteSpace="nowrap"
-                overflow="hidden"
-                textOverflow="ellipsis"
-                width="100%"
-                display="block"
-                p={1}
-                lineHeight="1.2"
-              >
-                {title}
-              </Box>
-            </div>
+              {title}
+            </Box>
             <Box px="1" height="12px">
               <StarRate rating={rating} />
             </Box>

@@ -31,7 +31,7 @@ export const products = [
   },
   {
     id: 4,
-    name: "CuteBone Duck Big Dog Pajamas, Blue-Green & Yellow, Large",
+    name: "CuteBone Duck Big Dog Pajamas, Blue-Green & Yellow, Large니ㅏ얼이ㅓㄹㅇ나ㅣ렁나랄ㄴ아러알아러아러ㅣ러이ㅏㄹ어라어랑너리안렁니렁니ㅏ렁니ㅏ러아렁ㄴ린",
     price: 29.99,
     rating: 0.0,
     image_url:
