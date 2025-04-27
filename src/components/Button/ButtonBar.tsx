@@ -28,9 +28,9 @@ export const ButtonBar = (props: ButtonBarProps) => {
   if (!isMounted) return null; // or skeleton
   const notify = () => toast("Pushed to cart");
   return (
-    <HStack justify="space-evenly">
+    <HStack justify="center">
       {isCart && ( // 장바구니에 있는 버튼
-        <Button width="70%" onClick={props.onBuy}>
+        <Button onClick={props.onBuy} style={{ width: "70%" }}>
           Buy Now
         </Button>
       )}

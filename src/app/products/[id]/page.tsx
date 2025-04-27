@@ -8,15 +8,18 @@ import { useParams } from "next/navigation";
 export default function Results() {
   const params = useParams();
   const itemId = Number(params.id);
+  const product = products[itemId - 1];
+  
   return (
     <Flex direction="column" gap="28px" align="center">
       <ProductDetailCard
         key={itemId}
-        id={products[itemId - 1].id}
-        imageUrl={products[itemId - 1].image_url}
-        title={products[itemId - 1].name}
-        rating={products[itemId - 1].rating}
-        price={products[itemId - 1].price}
+        id={product.id}
+        imageUrl={product.image_url}
+        title={product.name}
+        rating={product.rating}
+        price={product.price}
+        additionalImages={product.additional_images}
       />
       <Text color="#6294FF" fontSize="2xl" fontWeight="bold" textAlign="center">
         This strawberry dog outfit features a soft, breathable fabric with an
