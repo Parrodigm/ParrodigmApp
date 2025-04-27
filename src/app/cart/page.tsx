@@ -61,7 +61,6 @@ export default function Basket() {
                   title={products[itemId - 1].name}
                   rating={products[itemId - 1].rating}
                   price={products[itemId - 1].price}
-                  index={index}
                 />
               );
             })}
