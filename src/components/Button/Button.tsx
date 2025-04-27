@@ -1,8 +1,10 @@
 "use client";
 
 import { styled } from "@/styled-system/jsx";
+import Trash from "@/public/Trash.svg";
+import React from "react";
 
-const Button = styled("button", {
+const StyledButton = styled("button", {
   base: {
     display: "flex",
     alignItems: "center",
@@ -72,18 +74,26 @@ const Button = styled("button", {
           backgroundColor: "#dc2626",
         },
       },
-      circle: {
+      oval: {
         backgroundColor: "#A0BEFF",
         color: "white",
         borderRadius: "full",
         fontSize: "0.75rem",
         fontWeight: "600",
-        width: "12px",
-        height: "9px",
+        width: "15px",
+        height: "10px",
         padding: "0",
         _hover: {
           backgroundColor: "#6294FF",
           // transform: "scale(1.05)",
+        },
+      },
+      trash: {
+        padding: "0",
+        backgroundColor: "transparent",
+        transition: "none",
+        _hover: {
+          opacity: 0.8,
         },
       },
     },
@@ -93,5 +103,31 @@ const Button = styled("button", {
     variant: "primary",
   },
 });
+
+// 기본 버튼 컴포넌트
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?:
+    | "primary"
+    | "start"
+    | "icon"
+    | "noBackground"
+    | "back"
+    | "oval"
+    | "trash";
+  size?: "sm" | "md" | "lg";
+}
+
+const Button = ({ variant, ...props }: ButtonProps) => {
+  // trash 버튼 variant인 경우 Trash 아이콘 사용
+  if (variant === "trash") {
+    return (
+      <StyledButton variant="trash" {...props}>
+        <Trash />
+      </StyledButton>
+    );
+  }
+  // 그 외 일반 버튼
+  return <StyledButton variant={variant} {...props} />;
+};
 
 export default Button;

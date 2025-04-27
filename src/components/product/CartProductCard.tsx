@@ -12,6 +12,7 @@ interface CartProductCardProps {
   rating: number;
   price: number;
   id: number;
+  index: number;
 }
 
 export default function CartProductCard({
@@ -20,6 +21,7 @@ export default function CartProductCard({
   rating,
   price,
   id,
+  index,
 }: CartProductCardProps) {
   const [cartList, setCartList] = useLocalStorage<CartItem[]>("cartList", []);
   const [totalPrice, setTotalPrice] = useState(price);
@@ -47,6 +49,11 @@ export default function CartProductCard({
           : item
       )
     );
+  };
+
+  // 상품을 카트에서 삭제하는 함수
+  const handleRemoveItem = () => {
+    setCartList((prev) => prev.filter((item) => item.item.id !== id));
   };
 
   return (
@@ -81,7 +88,6 @@ export default function CartProductCard({
       <Flex direction="column" flex="1" minWidth={0}>
         <HStack alignItems="start" gap="1.5">
           <Flex
-            marginStart="1"
             marginTop="1"
             width="4px"
             height="4px"
@@ -94,9 +100,9 @@ export default function CartProductCard({
             fontWeight="500"
             fontSize="15px"
           >
-            {id}
+            {index + 1}
           </Flex>
-          <VStack alignItems="start" gap="0" width="100%">
+          <VStack alignItems="start" gap="0" width="100%" pl="1">
             <div
               style={{
                 position: "relative",
@@ -122,25 +128,61 @@ export default function CartProductCard({
             <Box height="12px">
               <StarRate rating={rating} />
             </Box>
-            <Flex justify="space-between" mt="3" width="full">
-              <Flex gap="4px" alignItems="center">
-                <Button
-                  variant="circle"
-                  fontSize="11px"
-                  onClick={handleDecrease}
+            <Flex justify="space-between" mt="8px" width="full">
+              <Flex alignItems="center">
+                <Box
+                  width="24px"
+                  display="flex"
+                  justifyContent="center"
+                  ml="-1"
                 >
-                  -
-                </Button>
-                <Box fontSize="sm" color="#6294FF" fontWeight="bold">
+                  {quantity === 1 ? (
+                    // 수량이 1일 때는 쓰레기통 버튼 표시
+                    <Button
+                      key="quantity-button"
+                      variant="trash"
+                      onClick={handleRemoveItem}
+                      style={{
+                        transform: "scale(0.5)",
+                        padding: "0",
+                        transition: "none",
+                        marginLeft: "-2px",
+                      }}
+                    />
+                  ) : (
+                    // 수량이 2 이상일 때는 감소 버튼 표시
+                    <Button
+                      key="quantity-button"
+                      variant="oval"
+                      onClick={handleDecrease}
+                      style={{
+                        fontSize: "11px",
+                        transition: "none",
+                      }}
+                    >
+                      -
+                    </Button>
+                  )}
+                </Box>
+                <Box
+                  fontSize="15px"
+                  color="#6294FF"
+                  fontWeight="bold"
+                  mx="2px"
+                  width="15px"
+                  textAlign="center"
+                >
                   {quantity}
                 </Box>
-                <Button
-                  variant="circle"
-                  fontSize="11px"
-                  onClick={handleIncrease}
-                >
-                  +
-                </Button>
+                <Box width="20px" display="flex" justifyContent="center">
+                  <Button
+                    variant="oval"
+                    onClick={handleIncrease}
+                    style={{ fontSize: "11px" }}
+                  >
+                    +
+                  </Button>
+                </Box>
               </Flex>
               <Box fontSize="20px" color="#6294FF" fontWeight="500" mr="3">
                 ${totalPrice.toFixed(2)}

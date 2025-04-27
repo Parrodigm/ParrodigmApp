@@ -5,12 +5,16 @@ import { useLocalStorage } from "usehooks-ts";
 import { CartItem } from "../products/[id]/layout";
 import { products } from "@/src/products";
 import { Text } from "@/src/components/Text";
-import Trash from "@/public/Trash.svg";
+import Button from "@/src/components/Button/Button";
 import { CartSummary } from "@/src/components/cart/CartSummary";
 
 export default function Basket() {
   const [cartList, setCartList] = useLocalStorage<CartItem[]>("cartList", []);
   console.log(cartList);
+  // 장바구니 비우기 함수
+  const handleClearCart = () => {
+    setCartList([]);
+  };
   return (
     <Flex
       direction="column"
@@ -36,7 +40,7 @@ export default function Basket() {
           <Text color="#6294FF" fontSize="24px" fontWeight="semibold">
             Shopping Cart
           </Text>
-          <Trash />
+          <Button variant="trash" onClick={handleClearCart} />
         </Flex>
         <Flex direction="column" width="100%">
           <Flex
@@ -46,12 +50,13 @@ export default function Basket() {
             width="100%"
             marginTop="20px"
           >
-            {cartList.map((el) => {
+            {cartList.map((el, index) => {
               const itemId = el.item.id;
               return (
                 <CartProductCard
                   key={itemId}
                   id={itemId}
+                  index={index}
                   imageUrl={products[itemId - 1].image_url}
                   title={products[itemId - 1].name}
                   rating={products[itemId - 1].rating}
