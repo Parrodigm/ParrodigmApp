@@ -9,7 +9,7 @@ export default function Home() {
   const [hover, setHover] = useState(false);
   const router = useRouter();
   const onClick = () => {
-    router.push("/tutorial");
+    router.push("/conversation");
   };
   return (
     <Flex

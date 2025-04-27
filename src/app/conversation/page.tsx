@@ -4,7 +4,7 @@ import { Text } from "@/src/components/Text";
 import { useRouter } from "next/navigation";
 import Button from "@/src/components/Button/Button";
 
-export default function Tutorial() {
+export default function Page() {
   const router = useRouter();
   const onClick = () => {
     router.push("/results");
