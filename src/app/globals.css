@@ -61,14 +61,6 @@
   /* margin-bottom: 10px; */
 }
 
-/* .product-swiper .swiper-pagination-bullet {
-  width: 8px;
-  height: 8px;
-  margin: 0 4px;
-  opacity: 1;
-  background-color: #D1D5DB;
-} */
-
 .product-swiper .swiper-pagination-bullet-active {
   background-color: #6294FF;
 }
