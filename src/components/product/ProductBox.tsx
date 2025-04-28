@@ -10,8 +10,8 @@ export const ProductBox = () => {
           key={product.id}
           id={product.id}
           index={index + 1}
-          imageUrl={product.image_url}
-          title={product.name}
+          imageUrl={product.images[0]?.url}
+          title={product.displayName}
           rating={product.rating}
           price={product.price}
         />

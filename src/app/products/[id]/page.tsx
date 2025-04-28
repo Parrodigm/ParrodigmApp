@@ -10,16 +10,20 @@ export default function Results() {
   const itemId = Number(params.id);
   const product = products[itemId - 1];
   
+  // Get the main image URL and additional image URLs from the images array
+  const mainImageUrl = product.images[0]?.url || "";
+  const additionalImageUrls = product.images.slice(1).map(img => img.url);
+  
   return (
     <Flex direction="column" gap="28px" align="center">
       <ProductDetailCard
         key={itemId}
         id={product.id}
-        imageUrl={product.image_url}
-        title={product.name}
+        imageUrl={mainImageUrl}
+        title={product.displayName}
         rating={product.rating}
         price={product.price}
-        additionalImages={product.additional_images}
+        additionalImages={additionalImageUrls}
       />
       <Text color="#6294FF" fontSize="2xl" fontWeight="bold" textAlign="center">
         This strawberry dog outfit features a soft, breathable fabric with an

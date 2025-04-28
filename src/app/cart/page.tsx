@@ -52,15 +52,16 @@ export default function Basket() {
           >
             {cartList.map((el, index) => {
               const itemId = el.item.id;
+              const product = products[itemId - 1];
               return (
                 <CartProductCard
                   key={itemId}
                   id={itemId}
                   index={index}
-                  imageUrl={products[itemId - 1].image_url}
-                  title={products[itemId - 1].name}
-                  rating={products[itemId - 1].rating}
-                  price={products[itemId - 1].price}
+                  imageUrl={product.images[0].url}
+                  title={product.displayName}
+                  rating={product.rating}
+                  price={product.price}
                 />
               );
             })}
