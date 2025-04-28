@@ -11,7 +11,7 @@ export default function ProductLayout({
   const router = useRouter();
 
   const handleXClick = () => {
-    router.push("/results");
+    router.push("/products");
   };
 
   const handleBuy = () => {

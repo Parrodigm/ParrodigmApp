@@ -3,26 +3,17 @@ import { Box, Flex, HStack, VStack } from "@/styled-system/jsx";
 import { StarRate } from "./StarRate";
 import Link from "next/link";
 
-interface ProductCardProps {
-  index: number;
-  imageUrl: string;
-  title: string;
-  rating: number;
-  price: number;
-  id: number;
-}
+import { Product } from "@/src/types/types";
 
 export const ProductCard = ({
   index,
-  imageUrl,
-  title,
-  rating,
-  price,
-  id,
-}: ProductCardProps) => {
+  product,
+}: {
+  index: number;
+  product: Product;
+}) => {
   return (
-    <Link href={`/products/${id}`}>
-      {" "}
+    <Link href={`/product/${product.id}`}>
       <Box
         bg="white"
         overflow="hidden"
@@ -33,8 +24,8 @@ export const ProductCard = ({
       >
         <Box position="relative" width="100%" height="175px" overflow="hidden">
           <Image
-            src={imageUrl}
-            alt={title}
+            src={product.images[0].url}
+            alt={product.displayName}
             fill
             sizes="(max-width: 768px) 100vw, 175px"
             style={{
@@ -42,29 +33,10 @@ export const ProductCard = ({
             }}
             priority
           />
-          {/* <Flex
-            position="absolute"
-            top="2"
-            left="2"
-            width="6"
-            height="6"
-            bg="blue.500"
-            borderRadius="full"
-            align="center"
-            justify="center"
-            color="white"
-            fontWeight="bold"
-            fontSize="sm"
-          >
-            {index}
-          </Flex> */}
         </Box>
         <VStack alignItems="start" gap="0">
           <HStack alignItems="start" gap="0.03">
             <Flex
-              // position="absolute"
-              // top="2"
-              // left="2"
               marginStart="8px"
               marginTop="8px"
               width="4"
@@ -78,7 +50,7 @@ export const ProductCard = ({
               fontWeight="500"
               fontSize="15px"
             >
-              {index}
+              {index + 1}
             </Flex>
             <VStack alignItems="start" gap="0">
               <Box
@@ -88,44 +60,26 @@ export const ProductCard = ({
                 color="#6294FF"
                 px="5px"
                 py="1"
-                // whiteSpace="nowrap"
-                // overflow="hidden"
-                // textOverflow="ellipsis"
                 width="100%"
                 display="block"
               >
-                {title.length > 10 ? title.slice(0, 25) + "..." : title}
+                {product.displayName.length > 10
+                  ? product.displayName.slice(0, 25) + "..."
+                  : product.displayName}
               </Box>
               <Box px="3px">
-                <StarRate rating={rating} />
+                <StarRate rating={product.rating} />
               </Box>
             </VStack>
           </HStack>
-          {/* <Box
-            fontWeight="semibold"
-            fontSize="md"
-            color="#6294FF"
-            px="2"
-            whiteSpace="nowrap"
-            overflow="hidden"
-            textOverflow="ellipsis"
-            width="100%"
-            display="block"
-          >
-            {title}
-          </Box> */}
-          {/* <Box px="8">
-            <StarRate rating={rating} />
-          </Box> */}
           <Box
             fontSize="16px"
             fontWeight="500"
             color="#6294FF"
             alignSelf="flex-end"
-            // marginTop="1"
             mr="2"
           >
-            ${price.toFixed(2)}
+            ${product.price.toFixed(2)}
           </Box>
         </VStack>
       </Box>

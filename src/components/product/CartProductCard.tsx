@@ -4,39 +4,32 @@ import { StarRate } from "./StarRate";
 import { useLocalStorage } from "usehooks-ts";
 import { useEffect, useState } from "react";
 import Button from "@/src/components/Button/Button";
-import { CartItem } from "@/src/app/products/[id]/layout";
 
-interface CartProductCardProps {
-  imageUrl: string;
-  title: string;
-  rating: number;
-  price: number;
-  id: number;
-  index: number;
-}
+import { Product, CartItem } from "@/src/types/types";
 
 export default function CartProductCard({
-  imageUrl,
-  title,
-  rating,
-  price,
-  id,
   index,
-}: CartProductCardProps) {
+  product,
+}: {
+  index: number;
+  product: Product;
+}) {
   const [cartList, setCartList] = useLocalStorage<CartItem[]>("cartList", []);
-  const [totalPrice, setTotalPrice] = useState(price);
+  const [totalPrice, setTotalPrice] = useState(product.price);
   // 현재 상품의 수량 찾기
-  const currentItem = cartList.find((item) => item.item.id === id);
+  const currentItem = cartList.find((item) => item.product.id === product.id);
   const quantity = currentItem ? currentItem.quantity : 0;
 
   useEffect(() => {
-    setTotalPrice(price * quantity);
-  }, [quantity, price]);
+    setTotalPrice(product.price * quantity);
+  }, [quantity, product.price]);
 
   const handleIncrease = () => {
     setCartList((prev) =>
       prev.map((item) =>
-        item.item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        item.product.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
       )
     );
   };
@@ -44,7 +37,7 @@ export default function CartProductCard({
   const handleDecrease = () => {
     setCartList((prev) =>
       prev.map((item) =>
-        item.item.id === id && item.quantity > 1
+        item.product.id === product.id && item.quantity > 1
           ? { ...item, quantity: item.quantity - 1 }
           : item
       )
@@ -53,7 +46,9 @@ export default function CartProductCard({
 
   // 상품을 카트에서 삭제하는 함수
   const handleRemoveItem = () => {
-    setCartList((prev) => prev.filter((item) => item.item.id !== id));
+    setCartList((prev) =>
+      prev.filter((item) => item.product.id !== product.id)
+    );
   };
 
   return (
@@ -77,8 +72,8 @@ export default function CartProductCard({
         overflow="hidden"
       >
         <Image
-          src={imageUrl}
-          alt={title}
+          src={product.images[0].url}
+          alt={product.displayName}
           fill
           style={{ objectFit: "cover" }}
           sizes="(max-width: 100px) 100vw, 33vw"
@@ -122,11 +117,11 @@ export default function CartProductCard({
                 display="block"
                 paddingRight="2"
               >
-                {title}
+                {product.displayName}
               </Box>
             </div>
             <Box height="12px">
-              <StarRate rating={rating} />
+              <StarRate rating={product.rating} />
             </Box>
             <Flex justify="space-between" mt="8px" width="full">
               <Flex alignItems="center">
@@ -190,46 +185,6 @@ export default function CartProductCard({
             </Flex>
           </VStack>
         </HStack>
-        {/* <Box
-          fontWeight="semibold"
-          fontSize="md"
-          color="#6294FF"
-          whiteSpace="nowrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          width="100%"
-        >
-          {title}
-        </Box>
-
-        <StarRate rating={rating} /> */}
-
-        {/* <HStack justify="space-between" mt="3">
-          <Flex gap="4px">
-            <Button
-              variant="circle"
-              fontSize="12px"
-              marginTop="4px"
-              onClick={handleDecrease}
-            >
-              -
-            </Button>
-            <Box fontSize="sm" color="#6294FF" fontWeight="bold">
-              {quantity}
-            </Box>
-            <Button
-              variant="circle"
-              fontSize="12px"
-              marginTop="4px"
-              onClick={handleIncrease}
-            >
-              +
-            </Button>
-          </Flex>
-          <Box fontSize="20px" color="#6294FF" fontWeight="500" mr="3">
-            ${totalPrice.toFixed(2)}
-          </Box>
-        </HStack> */}
       </Flex>
     </Flex>
   );
