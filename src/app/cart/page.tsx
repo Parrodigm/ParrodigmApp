@@ -1,20 +1,24 @@
 "use client";
+
+import { useCallback } from "react";
+
 import CartProductCard from "@/src/components/product/CartProductCard";
 import { Box, Flex } from "@/styled-system/jsx";
 import { useLocalStorage } from "usehooks-ts";
-import { CartItem } from "../products/[id]/layout";
-import { products } from "@/src/products";
 import { Text } from "@/src/components/Text";
 import Button from "@/src/components/Button/Button";
+
 import { CartSummary } from "@/src/components/cart/CartSummary";
+
+import { CartItem } from "@/src/types/types";
 
 export default function Basket() {
   const [cartList, setCartList] = useLocalStorage<CartItem[]>("cartList", []);
-  console.log(cartList);
-  // 장바구니 비우기 함수
-  const handleClearCart = () => {
+
+  const handleClearCart = useCallback(() => {
     setCartList([]);
-  };
+  }, [setCartList]);
+
   return (
     <Flex
       direction="column"
@@ -50,25 +54,18 @@ export default function Basket() {
             width="100%"
             marginTop="20px"
           >
-            {cartList.map((el, index) => {
-              const itemId = el.item.id;
-              const product = products[itemId - 1];
+            {cartList.map((cartItem, index) => {
               return (
                 <CartProductCard
-                  key={itemId}
-                  id={itemId}
+                  key={cartItem.product.id}
                   index={index}
-                  imageUrl={product.images[0].url}
-                  title={product.displayName}
-                  rating={product.rating}
-                  price={product.price}
+                  product={cartItem.product}
                 />
               );
             })}
           </Flex>
         </Flex>
       </Flex>
-      {/* 장바구니 요약 컴포넌트 */}
       {cartList.length > 0 && <CartSummary />}
     </Flex>
   );

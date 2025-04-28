@@ -1,16 +1,18 @@
 "use client";
+
 import { Flex } from "@/styled-system/jsx";
 import Button from "@/src/components/Button/Button";
 import { Text } from "@/src/components/Text";
-import { useState } from "react";
+import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const [hover, setHover] = useState(false);
   const router = useRouter();
-  const onClick = () => {
+
+  const onClick = useCallback(() => {
     router.push("/conversation");
-  };
+  }, [router]);
+
   return (
     <Flex
       direction="column"
@@ -31,19 +33,10 @@ export default function Home() {
         <Text fontWeight="bold" color="#6294FF">
           find products, track orders, or answer quick questions-all by
           voice.{" "}
-        </Text>{" "}
-        Would you like to try{" "}
-        <Text fontWeight="bold" color="#6294FF">
-          voice mode?
         </Text>
       </Text>
-      <Button
-        variant="start"
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        onClick={onClick}
-      >
-        {hover ? "Yes, let's try it!" : "Google"}
+      <Button variant="start" onClick={onClick}>
+        Start
       </Button>
     </Flex>
   );

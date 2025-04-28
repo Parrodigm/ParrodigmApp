@@ -1,8 +1,8 @@
-import { Box, Flex, Divider } from "@/styled-system/jsx";
+import { Box, Flex } from "@/styled-system/jsx";
 import { useLocalStorage } from "usehooks-ts";
 import { useState, useEffect } from "react";
-import { CartItem } from "@/src/app/products/[id]/layout";
-import { products } from "@/src/products";
+
+import { CartItem } from "@/src/types/types";
 
 export const CartSummary = () => {
   const [cartList, setCartList] = useLocalStorage<CartItem[]>("cartList", []);
@@ -15,10 +15,7 @@ export const CartSummary = () => {
     const calculateSubtotal = () => {
       let sum = 0;
       cartList.forEach((item) => {
-        const product = products.find((p) => p.id === item.item.id);
-        if (product) {
-          sum += product.price * item.quantity;
-        }
+        sum += item.product.price * item.quantity;
       });
       return sum;
     };
