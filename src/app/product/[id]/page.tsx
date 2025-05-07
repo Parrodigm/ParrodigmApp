@@ -1,45 +1,56 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import { useParams } from "next/navigation";
-
-import { ProductDetailCard } from "@/src/components/Product/ProductDetailCard";
+import { ProductDetailCard } from "@/src/components/product/ProductDetailCard";
 import { ButtonBar } from "@/src/components/Button/ButtonBar";
 import { Text } from "@/src/components/Text";
 import { Flex } from "@/styled-system/jsx";
+import { useRouter, useParams } from "next/navigation";
+import { useEffect, useState, useCallback } from "react";
+import { useLocalStorage } from "usehooks-ts";
 
-import { css } from "@/../../styled-system/css";
-
-import { useCartState } from "@/src/stores/useCartState";
-import { usePageController } from "@/src/hooks/usePageController";
-
-import { Product } from "@/src/types/types";
+import { CartItem, Product } from "@/src/types/types";
 
 export default function Page() {
+  const router = useRouter();
   const params = useParams();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const { addCartItem, getCartItemCount } = useCartState();
-  const { showCart } = usePageController();
+  const [cartList, setCartList] = useLocalStorage<CartItem[]>("cartList", []);
 
-  const addItemToCart = useCallback(() => {
+  const handleAddToCart = useCallback(() => {
     if (!product) {
       return;
     }
-    addCartItem(product.id, 1);
-  }, [product, addCartItem]);
+    if (cartList.some((el) => el.product.id === product.id)) {
+      setCartList((prev) =>
+        prev.map((el) =>
+          el.product.id === product.id
+            ? { ...el, quantity: el.quantity + 1 }
+            : el
+        )
+      );
+    } else {
+      setCartList((prev) => [...prev, { product: product, quantity: 1 }]);
+    }
+  }, [product, cartList, setCartList]);
+
+  const handleBasketClick = useCallback(() => {
+    router.push("/cart");
+  }, [router]);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products?id=${params.id}`);
+        const response = await fetch(
+          `http://localhost:5000/product?id=${params.id}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch product");
         }
         const data = await response.json();
-        setProduct(data[0]);
+        setProduct(data);
       } catch (error) {
         console.error("Error fetching product:", error);
       } finally {
@@ -67,12 +78,31 @@ export default function Page() {
   }
 
   return (
-    <Flex padding="0 20px" direction="column" gap="1em">
-      <ProductDetailCard key={product.id} product={product} />
-      <div className={css({ flex: 1, fontSize: "1.2em", fontWeight: "bold", textAlign: "center", color: "#6294FF", overflow: "scroll" })}>
-        {product.description}
-      </div>
-      <ButtonBar type="default" onBuy={() => {}} onAddToCart={addItemToCart} onBasket={showCart} cartCount={getCartItemCount()} />
+    <Flex
+      height="100%"
+      padding="0 20px"
+      direction="column"
+      justify="space-between"
+      paddingBottom="10"
+    >
+      <Flex direction="column" gap="28px" align="center">
+        <ProductDetailCard key={product.id} product={product} />
+        <Text
+          color="#6294FF"
+          fontSize="2xl"
+          fontWeight="bold"
+          textAlign="center"
+        >
+          {product.description}
+        </Text>
+      </Flex>
+      <ButtonBar
+        type="default"
+        onBuy={() => {}}
+        onAddToCart={handleAddToCart}
+        onBasket={handleBasketClick}
+        cartCount={cartList.reduce((acc, el) => acc + el.quantity, 0)}
+      />
     </Flex>
   );
 }

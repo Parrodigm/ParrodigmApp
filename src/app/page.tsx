@@ -1,29 +1,41 @@
 "use client";
 
-import { css } from "@/../../styled-system/css";
 import { Flex } from "@/styled-system/jsx";
+import Button from "@/src/components/Button/Button";
 import { Text } from "@/src/components/Text";
-
-import Logo from "../app/parrodigm_logo.svg";
-
-import { Button } from "@/src/components/Button/Button";
-
-import { usePageController } from "@/src/hooks/usePageController";
+import { useCallback } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { showConversation } = usePageController();
+  const router = useRouter();
+
+  const onClick = useCallback(() => {
+    router.push("/conversation");
+  }, [router]);
 
   return (
-    <Flex direction="column" justify="center" align="center" gap="4em" padding="0 20px">
-      <Logo className={css({ width: "10em" })} />
-      <Text textAlign="center" fontSize="3xl" fontWeight="light" color="#93C5F1">
+    <Flex
+      direction="column"
+      justify="center"
+      align="center"
+      height="100%"
+      gap="4em"
+      padding="0 20px"
+    >
+      <Text
+        textAlign="center"
+        fontSize="3xl"
+        fontWeight="light"
+        color="#93C5F1"
+      >
         Hey there!
         <br /> I can help you{" "}
         <Text fontWeight="bold" color="#6294FF">
-          find products, track orders, or answer quick questions-all by voice.{" "}
+          find products, track orders, or answer quick questions-all by
+          voice.{" "}
         </Text>
       </Text>
-      <Button variant="start" onClick={showConversation}>
+      <Button variant="start" onClick={onClick}>
         Start
       </Button>
     </Flex>
