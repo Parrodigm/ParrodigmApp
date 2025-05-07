@@ -2,17 +2,13 @@ import { useState, useCallback, useRef } from "react";
 
 import { useMicVAD, utils } from "@ricky0123/vad-react";
 
-export const useVoiceDetector = ({
-  onVoiceDetected,
-}: {
-  onVoiceDetected: (text: string) => void;
-}) => {
-  const [isEnabled, setIsEnabled] = useState(true);
+export const useVoiceDetector = ({ onVoiceDetected }: { onVoiceDetected: (text: string) => void }) => {
+  const [isEnabled, setIsEnabled] = useState(false);
   const [isTalking, setIsTalking] = useState(false);
   const processing = useRef(false);
 
   const voiceDetector = useMicVAD({
-    startOnLoad: true,
+    startOnLoad: false,
     onSpeechStart: () => {
       console.log("User start talking");
       setIsTalking(true);
@@ -31,23 +27,27 @@ export const useVoiceDetector = ({
     redemptionFrames: 20,
   });
 
-  const setEnabled = useCallback(() => {
-    console.log("setEnabled");
-    voiceDetector.start();
-    setIsEnabled(true);
-  }, [voiceDetector]);
-
-  const setDisabled = useCallback(() => {
-    console.log("setDisabled");
-    voiceDetector.pause();
-    setIsEnabled(false);
-  }, [voiceDetector]);
+  const setEnabled = useCallback(
+    (enabled: boolean) => {
+      if (enabled === isEnabled) {
+        return;
+      }
+      console.log("setEnabled", enabled);
+      if (enabled) {
+        voiceDetector.start();
+      } else {
+        voiceDetector.pause();
+      }
+      setIsEnabled(enabled);
+    },
+    [isEnabled, voiceDetector]
+  );
 
   const getTranscript = useCallback(async ({ file }: { file: Blob }) => {
     const formData = new FormData();
     formData.append("audio", file);
 
-    const response = await fetch("http://localhost:5000/transcript", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/audio/speech-to-text`, {
       method: "POST",
       body: formData,
     });
@@ -90,7 +90,6 @@ export const useVoiceDetector = ({
 
   return {
     setEnabled,
-    setDisabled,
     isEnabled,
     isTalking,
   };

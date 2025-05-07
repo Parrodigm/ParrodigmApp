@@ -1,11 +1,10 @@
-import { Box, Flex } from "@/styled-system/jsx";
-import { useLocalStorage } from "usehooks-ts";
 import { useState, useEffect } from "react";
 
-import { CartItem } from "@/src/types/types";
+import { Box, Flex } from "@/styled-system/jsx";
 
-export const CartSummary = () => {
-  const [cartList, setCartList] = useLocalStorage<CartItem[]>("cartList", []);
+import { Product } from "@/src/types/types";
+
+export const CartSummary = ({ cartProducts }: { cartProducts: { product: Product; quantity: number }[] }) => {
   const [subtotal, setSubtotal] = useState(0);
   const [shipping, setShipping] = useState(5.99); // 기본 배송비
   const [total, setTotal] = useState(0);
@@ -14,7 +13,7 @@ export const CartSummary = () => {
   useEffect(() => {
     const calculateSubtotal = () => {
       let sum = 0;
-      cartList.forEach((item) => {
+      cartProducts.forEach((item) => {
         sum += item.product.price * item.quantity;
       });
       return sum;
@@ -27,7 +26,7 @@ export const CartSummary = () => {
     setShipping(newShipping);
     // 총 결제 금액
     setTotal(newSubtotal + newShipping);
-  }, [cartList]);
+  }, [cartProducts]);
 
   return (
     <Box bg="white" p="2" width="full" mt="2" mb="2">

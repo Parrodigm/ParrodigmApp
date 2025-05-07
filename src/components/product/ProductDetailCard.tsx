@@ -13,26 +13,8 @@ import "swiper/css/navigation";
 
 export const ProductDetailCard = ({ product }: { product: Product }) => {
   return (
-    <Flex
-      bg="white"
-      borderRadius="xl"
-      gap="0"
-      align="stretch"
-      width="full"
-      flexDir="column"
-      maxW="md"
-      height="auto"
-      shadow="0 2px 1px 0 rgba(0, 0, 0, 0.13)"
-    >
-      <Box
-        flexShrink={0}
-        position="relative"
-        width="100%"
-        height="330px"
-        borderTopLeftRadius="xl"
-        borderTopRightRadius="xl"
-        overflow="hidden"
-      >
+    <Flex bg="white" borderRadius="xl" gap="0" align="stretch" width="full" flexDir="column" maxW="md" height="auto" shadow="0 2px 1px 0 rgba(0, 0, 0, 0.13)">
+      <Box flexShrink={0} position="relative" width="100%" height="330px" borderTopLeftRadius="xl" borderTopRightRadius="xl" overflow="hidden">
         <Swiper
           modules={[Pagination, Navigation, Autoplay]}
           spaceBetween={0}
@@ -41,11 +23,7 @@ export const ProductDetailCard = ({ product }: { product: Product }) => {
             clickable: true,
             dynamicBullets: false,
             renderBullet: function (index, className) {
-              return (
-                '<span class="' +
-                className +
-                '" style="background-color: #6294FF;"></span>'
-              );
+              return '<span class="' + className + '" style="background-color: #6294FF;"></span>';
             },
           }}
           navigation={true}
@@ -53,7 +31,6 @@ export const ProductDetailCard = ({ product }: { product: Product }) => {
           style={
             {
               width: "100%",
-              height: "100%",
             } as React.CSSProperties
           }
           className="product-swiper"
@@ -77,15 +54,7 @@ export const ProductDetailCard = ({ product }: { product: Product }) => {
       <Flex direction="column" flex="1" justify="center" gap="0" minWidth={0}>
         <HStack alignItems="start" gap="1.5">
           <VStack alignItems="start" gap="0" width="100%">
-            <Box
-              fontWeight="600"
-              fontSize="17px"
-              color="#6294FF"
-              width="100%"
-              display="block"
-              p={1}
-              lineHeight="1.2"
-            >
+            <Box fontWeight="600" fontSize="17px" color="#6294FF" width="100%" display="block" p={1} lineHeight="1.2">
               {product.displayName}
             </Box>
             <Box px="1" height="12px">
