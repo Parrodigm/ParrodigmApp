@@ -1,14 +1,37 @@
 export type UserMessage = {
   role: "user";
-  content: string;
+  content: {
+    text: string | null;
+    currentDisplayedProductIds: number[];
+    cart: CartItem[];
+    currentPageInfo: PageInfo;
+  };
 };
 
 export type AssistantMessage = {
   role: "assistant";
-  content: string;
+  content: {
+    text: string | null;
+    actions: Action[];
+  };
 };
 
 export type SystemMessage = {
+  role: "system";
+  content: string;
+};
+
+export type ModelUserMessage = {
+  role: "user";
+  content: string;
+};
+
+export type ModelAssistantMessage = {
+  role: "assistant";
+  content: string;
+};
+
+export type ModelSystemMessage = {
   role: "system";
   content: string;
 };
@@ -68,19 +91,69 @@ export type Product = {
   deletedAt: string | null;
 };
 
-export type ConversationResponse =
-  | {
-      type: "response";
-      text: string;
-      audio: string;
-    }
-  | {
-      type: "products";
-      query: string;
-      products: Product[];
-    };
-
 export type CartItem = {
-  product: Product;
+  productId: number;
   quantity: number;
+};
+
+export type HomePageInfo = {
+  type: "home";
+};
+
+export type ConversationPageInfo = {
+  type: "conversation";
+};
+
+export type ProductListPageInfo = {
+  type: "product-list";
+};
+
+export type ProductDetailsPageInfo = {
+  type: "product-details";
+  productId: number;
+};
+
+export type CartPageInfo = {
+  type: "cart";
+};
+
+export type PageInfo = HomePageInfo | ConversationPageInfo | ProductListPageInfo | ProductDetailsPageInfo | CartPageInfo;
+
+export type ShowProductsAction = {
+  type: "show-products";
+  productIds: number[];
+};
+
+export type AddCartAction = {
+  type: "add-cart";
+  productId: number;
+  quantity: number;
+};
+
+export type UpdateCartAction = {
+  type: "update-cart";
+  productId: number;
+  quantity: number;
+};
+
+export type RemoveCartAction = {
+  type: "remove-cart";
+  productId: number;
+};
+
+export type ClearCartAction = {
+  type: "clear-cart";
+};
+
+export type MovePageAction = {
+  type: "move-page";
+  page: PageInfo;
+};
+
+export type Action = ShowProductsAction | AddCartAction | UpdateCartAction | RemoveCartAction | ClearCartAction | MovePageAction;
+
+export type AssistantResponse = {
+  text: string | null;
+  audio: string | null;
+  actions: Action[];
 };

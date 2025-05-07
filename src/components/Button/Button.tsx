@@ -15,8 +15,15 @@ const StyledButton = styled("button", {
     transition: "all 0.2s",
     overflow: "hidden",
     whiteSpace: "nowrap",
+    cursor: "pointer",
   },
   variants: {
+    disabled: {
+      true: {
+        opacity: 0.5,
+        cursor: "not-allowed",
+      },
+    },
     size: {
       sm: {
         padding: "0.25rem 0.5rem",
@@ -106,18 +113,11 @@ const StyledButton = styled("button", {
 
 // 기본 버튼 컴포넌트
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?:
-    | "primary"
-    | "start"
-    | "icon"
-    | "noBackground"
-    | "back"
-    | "oval"
-    | "trash";
+  variant?: "primary" | "start" | "icon" | "noBackground" | "back" | "oval" | "trash";
   size?: "sm" | "md" | "lg";
 }
 
-const Button = ({ variant, ...props }: ButtonProps) => {
+export const Button = ({ variant, ...props }: ButtonProps) => {
   // trash 버튼 variant인 경우 Trash 아이콘 사용
   if (variant === "trash") {
     return (
@@ -129,5 +129,3 @@ const Button = ({ variant, ...props }: ButtonProps) => {
   // 그 외 일반 버튼
   return <StyledButton variant={variant} {...props} />;
 };
-
-export default Button;
