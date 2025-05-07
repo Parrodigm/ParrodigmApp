@@ -1,98 +1,79 @@
 import { useCallback, useRef } from "react";
 
-import { Conversation, Action, AssistantResponse, ModelUserMessage, ModelAssistantMessage, ModelSystemMessage } from "../types/types";
-
+import { Conversation, ConversationResponse } from "../types/types";
 import { useConversationState } from "../stores/useConversationState";
 import { useProductsState } from "../stores/useProductsState";
-import { useCartState } from "../stores/useCartState";
-
-import { usePageState } from "../stores/usePageState";
-
 export const useConversation = ({
   onAudioGenerated,
-  onActionRequested,
 }: {
-  onAudioGenerated?: (audio: string) => void;
-  onActionRequested?: (action: Action) => void;
-} = {}) => {
+  onAudioGenerated: (audio: string) => void;
+}) => {
   const processing = useRef(false);
 
-  const { conversation, setConversation, getLastAssistantMessage, getLastUserMessage } = useConversationState();
+  const { conversation, setConversation } = useConversationState();
+  const { setProducts } = useProductsState();
 
-  const { productIds } = useProductsState();
-  const { cart } = useCartState();
+  const getConversationResponse = useCallback(
+    async (messages: Conversation): Promise<ConversationResponse> => {
+      const response = await fetch("http://localhost:5000/conversation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ messages: messages }),
+      });
 
-  const { currentPageInfo } = usePageState();
-
-  const getAssistantResponse = useCallback(async (messages: Conversation): Promise<AssistantResponse> => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/conversation`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        messages: messages.map((message): ModelUserMessage | ModelAssistantMessage | ModelSystemMessage => ({
-          role: message.role,
-          content: JSON.stringify(message.content),
-        })),
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to get response");
-    }
-
-    return await response.json();
-  }, []);
-
-  const requestAssistantMessage = useCallback(
-    async (text?: string) => {
-      if (processing.current) {
-        return;
+      if (!response.ok) {
+        throw new Error("Failed to get response");
       }
+
+      return await response.json();
+    },
+    []
+  );
+
+  const getAssistantMessage = useCallback(
+    async (text?: string) => {
+      if (processing.current) return;
       processing.current = true;
 
       const conversationTemp = [...conversation];
       if (text) {
         conversationTemp.push({
           role: "user",
-          content: {
-            text: text,
-            currentDisplayedProductIds: productIds,
-            cart: cart,
-            currentPageInfo: currentPageInfo,
-          },
+          content: text,
         });
         setConversation(conversationTemp);
       }
 
-      const response = await getAssistantResponse(conversationTemp);
-      if (response.audio) {
-        onAudioGenerated?.(response.audio);
+      const response = await getConversationResponse(conversationTemp);
+      if (response.type === "response") {
+        conversationTemp.push({
+          role: "assistant",
+          content: response.text,
+        });
+        onAudioGenerated(response.audio);
+      } else if (response.type === "products") {
+        conversationTemp.push({
+          role: "system",
+          content: response.query,
+        });
+        setProducts(response.products);
       }
-      if (onActionRequested) {
-        for (const action of response.actions) {
-          onActionRequested(action);
-        }
-      }
-      conversationTemp.push({
-        role: "assistant",
-        content: {
-          text: response.text,
-          actions: response.actions,
-        },
-      });
       console.log(conversationTemp);
       setConversation(conversationTemp);
       processing.current = false;
     },
-    [onAudioGenerated, onActionRequested, getAssistantResponse, setConversation, conversation, productIds, cart, currentPageInfo]
+    [
+      onAudioGenerated,
+      getConversationResponse,
+      setConversation,
+      conversation,
+      setProducts,
+    ]
   );
 
   return {
-    conversation,
-    requestAssistantMessage,
-    getLastAssistantMessage,
-    getLastUserMessage,
+    getAssistantMessage,
   };
 };

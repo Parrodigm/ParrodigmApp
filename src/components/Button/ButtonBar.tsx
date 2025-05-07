@@ -1,5 +1,5 @@
 import { HStack, Box } from "../../../styled-system/jsx";
-import { Button } from "./Button";
+import Button from "./Button";
 import { ToastContainer, toast } from "react-toastify";
 import Basket from "../../../public/basket.svg";
 import X from "../../../public/backButton.svg";

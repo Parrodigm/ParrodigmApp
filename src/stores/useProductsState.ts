@@ -1,9 +1,11 @@
 import { create } from "zustand";
 
+import { Product } from "@/src/types/types";
+
 export const useProductsState = create<{
-  productIds: number[];
-  setProductIds: (productIds: number[]) => void;
+  products: Product[];
+  setProducts: (products: Product[]) => void;
 }>((set) => ({
-  productIds: [],
-  setProductIds: (productIds) => set({ productIds: productIds }),
+  products: [],
+  setProducts: (products) => set({ products }),
 }));

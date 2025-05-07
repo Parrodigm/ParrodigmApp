@@ -1,38 +1,30 @@
 import { useEffect, useRef } from "react";
 
-import { Action } from "../types/types";
-
 import { useVoiceDetector } from "@/src/hooks/useVoiceDetector";
 import { useConversation } from "@/src/hooks/useConversation";
 
-export const useVoiceConversation = ({ onActionRequested }: { onActionRequested?: (action: Action) => void } = {}) => {
+export const useVoiceConversation = () => {
   const audio = useRef<HTMLAudioElement | null>(null);
 
-  const { setEnabled, isEnabled, isTalking } = useVoiceDetector({
+  const { setEnabled, setDisabled, isEnabled, isTalking } = useVoiceDetector({
     onVoiceDetected: (text: string) => {
       console.log(`[TRANSCRIPTION] ${text}`);
-      requestAssistantMessage(text);
+      getAssistantMessage(text);
     },
   });
 
-  const { conversation, requestAssistantMessage, getLastAssistantMessage, getLastUserMessage } = useConversation({
+  const { getAssistantMessage } = useConversation({
     onAudioGenerated: (base64String: string) => {
-      if (audio.current) {
-        audio.current.pause();
-      }
       audio.current = new Audio(`data:audio/wav;base64,${base64String}`);
       audio.current.play().catch((error) => {
         console.error("Audio playback error:", error);
       });
     },
-    onActionRequested: onActionRequested,
   });
 
   useEffect(() => {
-    if (isEnabled && conversation.length == 0) {
-      requestAssistantMessage();
-    }
-  }, [conversation, requestAssistantMessage, isEnabled]);
+    getAssistantMessage();
+  }, []);
 
   useEffect(() => {
     if (isTalking) {
@@ -42,12 +34,5 @@ export const useVoiceConversation = ({ onActionRequested }: { onActionRequested?
     }
   }, [isTalking]);
 
-  return {
-    setEnabled,
-    isEnabled,
-    isTalking,
-    conversation,
-    getLastAssistantMessage,
-    getLastUserMessage,
-  };
+  return { setEnabled, setDisabled, isEnabled, isTalking };
 };

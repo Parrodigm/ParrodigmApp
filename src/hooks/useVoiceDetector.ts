@@ -2,13 +2,17 @@ import { useState, useCallback, useRef } from "react";
 
 import { useMicVAD, utils } from "@ricky0123/vad-react";
 
-export const useVoiceDetector = ({ onVoiceDetected }: { onVoiceDetected: (text: string) => void }) => {
-  const [isEnabled, setIsEnabled] = useState(false);
+export const useVoiceDetector = ({
+  onVoiceDetected,
+}: {
+  onVoiceDetected: (text: string) => void;
+}) => {
+  const [isEnabled, setIsEnabled] = useState(true);
   const [isTalking, setIsTalking] = useState(false);
   const processing = useRef(false);
 
   const voiceDetector = useMicVAD({
-    startOnLoad: false,
+    startOnLoad: true,
     onSpeechStart: () => {
       console.log("User start talking");
       setIsTalking(true);
@@ -27,27 +31,23 @@ export const useVoiceDetector = ({ onVoiceDetected }: { onVoiceDetected: (text: 
     redemptionFrames: 20,
   });
 
-  const setEnabled = useCallback(
-    (enabled: boolean) => {
-      if (enabled === isEnabled) {
-        return;
-      }
-      console.log("setEnabled", enabled);
-      if (enabled) {
-        voiceDetector.start();
-      } else {
-        voiceDetector.pause();
-      }
-      setIsEnabled(enabled);
-    },
-    [isEnabled, voiceDetector]
-  );
+  const setEnabled = useCallback(() => {
+    console.log("setEnabled");
+    voiceDetector.start();
+    setIsEnabled(true);
+  }, [voiceDetector]);
+
+  const setDisabled = useCallback(() => {
+    console.log("setDisabled");
+    voiceDetector.pause();
+    setIsEnabled(false);
+  }, [voiceDetector]);
 
   const getTranscript = useCallback(async ({ file }: { file: Blob }) => {
     const formData = new FormData();
     formData.append("audio", file);
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/audio/speech-to-text`, {
+    const response = await fetch("http://localhost:5000/transcript", {
       method: "POST",
       body: formData,
     });
@@ -90,6 +90,7 @@ export const useVoiceDetector = ({ onVoiceDetected }: { onVoiceDetected: (text: 
 
   return {
     setEnabled,
+    setDisabled,
     isEnabled,
     isTalking,
   };

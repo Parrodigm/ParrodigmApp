@@ -1,33 +1,83 @@
-import { useCallback } from "react";
-
 import Image from "next/image";
 import { Box, Flex, HStack, VStack } from "@/styled-system/jsx";
 import { StarRate } from "./StarRate";
-import { Button } from "@/src/components/Button/Button";
+import { useLocalStorage } from "usehooks-ts";
+import { useEffect, useState } from "react";
+import Button from "@/src/components/Button/Button";
 
-import { useCartState } from "@/src/stores/useCartState";
+import { Product, CartItem } from "@/src/types/types";
 
-import { Product } from "@/src/types/types";
+export default function CartProductCard({
+  index,
+  product,
+}: {
+  index: number;
+  product: Product;
+}) {
+  const [cartList, setCartList] = useLocalStorage<CartItem[]>("cartList", []);
+  const [totalPrice, setTotalPrice] = useState(product.price);
+  // 현재 상품의 수량 찾기
+  const currentItem = cartList.find((item) => item.product.id === product.id);
+  const quantity = currentItem ? currentItem.quantity : 0;
 
-export default function CartProductCard({ index, product, quantity }: { index: number; product: Product; quantity: number }) {
-  const { updateCartItem, removeCartItem } = useCartState();
+  useEffect(() => {
+    setTotalPrice(product.price * quantity);
+  }, [quantity, product.price]);
 
-  const handleIncrease = useCallback(() => {
-    updateCartItem(product.id, quantity + 1);
-  }, [product, quantity, updateCartItem]);
+  const handleIncrease = () => {
+    setCartList((prev) =>
+      prev.map((item) =>
+        item.product.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+    );
+  };
 
-  const handleDecrease = useCallback(() => {
-    updateCartItem(product.id, quantity - 1);
-  }, [product, quantity, updateCartItem]);
+  const handleDecrease = () => {
+    setCartList((prev) =>
+      prev.map((item) =>
+        item.product.id === product.id && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };
 
-  const handleRemoveItem = useCallback(() => {
-    removeCartItem(product.id);
-  }, [product, removeCartItem]);
+  // 상품을 카트에서 삭제하는 함수
+  const handleRemoveItem = () => {
+    setCartList((prev) =>
+      prev.filter((item) => item.product.id !== product.id)
+    );
+  };
 
   return (
-    <Flex bg="white" borderRadius="xl" gap="2" align="stretch" width="full" maxW="md" height="80px" shadow="0 2px 1px 0 rgba(0, 0, 0, 0.13)">
-      <Box flexShrink={0} position="relative" width="80px" height="full" borderTopLeftRadius="xl" borderBottomLeftRadius="xl" overflow="hidden">
-        <Image src={product.images[0].url} alt={product.displayName} fill style={{ objectFit: "cover" }} sizes="(max-width: 100px) 100vw, 33vw" />
+    <Flex
+      bg="white"
+      borderRadius="xl"
+      gap="2"
+      align="stretch"
+      width="full"
+      maxW="md"
+      height="80px"
+      shadow="0 2px 1px 0 rgba(0, 0, 0, 0.13)"
+    >
+      <Box
+        flexShrink={0}
+        position="relative"
+        width="80px"
+        height="full"
+        borderTopLeftRadius="xl"
+        borderBottomLeftRadius="xl"
+        overflow="hidden"
+      >
+        <Image
+          src={product.images[0].url}
+          alt={product.displayName}
+          fill
+          style={{ objectFit: "cover" }}
+          sizes="(max-width: 100px) 100vw, 33vw"
+        />
       </Box>
 
       <Flex direction="column" flex="1" minWidth={0}>
@@ -75,8 +125,14 @@ export default function CartProductCard({ index, product, quantity }: { index: n
             </Box>
             <Flex justify="space-between" mt="8px" width="full">
               <Flex alignItems="center">
-                <Box width="24px" display="flex" justifyContent="center" ml="-1">
+                <Box
+                  width="24px"
+                  display="flex"
+                  justifyContent="center"
+                  ml="-1"
+                >
                   {quantity === 1 ? (
+                    // 수량이 1일 때는 쓰레기통 버튼 표시
                     <Button
                       key="quantity-button"
                       variant="trash"
@@ -89,6 +145,7 @@ export default function CartProductCard({ index, product, quantity }: { index: n
                       }}
                     />
                   ) : (
+                    // 수량이 2 이상일 때는 감소 버튼 표시
                     <Button
                       key="quantity-button"
                       variant="oval"
@@ -102,17 +159,28 @@ export default function CartProductCard({ index, product, quantity }: { index: n
                     </Button>
                   )}
                 </Box>
-                <Box fontSize="15px" color="#6294FF" fontWeight="bold" mx="2px" width="15px" textAlign="center">
+                <Box
+                  fontSize="15px"
+                  color="#6294FF"
+                  fontWeight="bold"
+                  mx="2px"
+                  width="15px"
+                  textAlign="center"
+                >
                   {quantity}
                 </Box>
                 <Box width="20px" display="flex" justifyContent="center">
-                  <Button variant="oval" onClick={handleIncrease} style={{ fontSize: "11px" }}>
+                  <Button
+                    variant="oval"
+                    onClick={handleIncrease}
+                    style={{ fontSize: "11px" }}
+                  >
                     +
                   </Button>
                 </Box>
               </Flex>
               <Box fontSize="20px" color="#6294FF" fontWeight="500" mr="3">
-                ${(product.price * quantity).toFixed(2)}
+                ${totalPrice.toFixed(2)}
               </Box>
             </Flex>
           </VStack>
