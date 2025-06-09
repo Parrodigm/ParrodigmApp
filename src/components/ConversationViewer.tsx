@@ -18,6 +18,8 @@ import { useCartState } from "../stores/useCartState";
 import { usePageController } from "@/src/hooks/usePageController";
 import { useProductsState } from "../stores/useProductsState";
 
+import { AnimatedText } from "@/src/components/AnimatedText";
+
 const ConversationViewerComponent = ({ css: cssProps }: { css?: SystemStyleObject }) => {
   const [isConversationEnabled, setIsConversationEnabled] = useState(false);
 
@@ -63,10 +65,6 @@ const ConversationViewerComponent = ({ css: cssProps }: { css?: SystemStyleObjec
     }
   }, [currentPageInfo.type, setEnabled]);
 
-  if (!isConversationEnabled) {
-    return null;
-  }
-
   return (
     <div
       className={css(
@@ -78,24 +76,14 @@ const ConversationViewerComponent = ({ css: cssProps }: { css?: SystemStyleObjec
           alignItems: "center",
           justifyContent: "center",
           gap: "1em",
-          backgroundColor: "#e0e0e0",
+          backgroundColor: "#ffffff80",
         },
         cssProps
       )}
     >
-      <AssistantMessageViewer css={{ fontSize: "1.2em" }} />
-      <UserMessageViewer css={{ fontSize: "0.8em" }} />
-      <div
-        className={css({ position: "absolute", bottom: "1em", right: "1em", display: "flex", justifyContent: "center", alignItems: "center", gap: "0.5em" })}
-      >
-        <div className={css({ fontSize: "0.8em", color: "#ffffff" })}>Voice Mode</div>
-        <Button className={css({ width: "1em", height: "2em" })} disabled={isEnabled} onClick={() => setEnabled(true)}>
-          Enable
-        </Button>
-        <Button className={css({ width: "1em", height: "2em" })} disabled={!isEnabled} onClick={() => setEnabled(false)}>
-          Disable
-        </Button>
-      </div>
+      <AnimatedText split={false} fontSize="1.2em" color="#5284EF">
+        Umm, I was thinking around 100.
+      </AnimatedText>
     </div>
   );
 };

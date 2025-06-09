@@ -25,12 +25,12 @@ export default function CartProductCard({ index, product, quantity }: { index: n
   }, [product, removeCartItem]);
 
   return (
-    <Flex bg="white" borderRadius="xl" gap="2" align="stretch" width="full" maxW="md" height="80px" shadow="0 2px 1px 0 rgba(0, 0, 0, 0.13)">
+    <Flex bg="white" borderRadius="xl" gap="2" align="stretch" width="full" maxW="md" shadow="0 2px 1px 0 rgba(0, 0, 0, 0.13)">
       <Box flexShrink={0} position="relative" width="80px" height="full" borderTopLeftRadius="xl" borderBottomLeftRadius="xl" overflow="hidden">
         <Image src={product.images[0].url} alt={product.displayName} fill style={{ objectFit: "cover" }} sizes="(max-width: 100px) 100vw, 33vw" />
       </Box>
 
-      <Flex direction="column" flex="1" minWidth={0}>
+      <Flex direction="column" flex="1" minWidth={0} padding="0.2em">
         <HStack alignItems="start" gap="1.5">
           <Flex
             marginTop="1"
@@ -59,7 +59,6 @@ export default function CartProductCard({ index, product, quantity }: { index: n
                 fontWeight="semibold"
                 position="absolute"
                 fontSize="md"
-                color="#6294FF"
                 whiteSpace="nowrap"
                 overflow="hidden"
                 textOverflow="ellipsis"
@@ -102,7 +101,7 @@ export default function CartProductCard({ index, product, quantity }: { index: n
                     </Button>
                   )}
                 </Box>
-                <Box fontSize="15px" color="#6294FF" fontWeight="bold" mx="2px" width="15px" textAlign="center">
+                <Box fontSize="15px" fontWeight="bold" mx="2px" width="15px" textAlign="center">
                   {quantity}
                 </Box>
                 <Box width="20px" display="flex" justifyContent="center">
@@ -111,7 +110,7 @@ export default function CartProductCard({ index, product, quantity }: { index: n
                   </Button>
                 </Box>
               </Flex>
-              <Box fontSize="20px" color="#6294FF" fontWeight="500" mr="3">
+              <Box fontSize="20px" color="#c30010" fontWeight="500" mr="3">
                 ${(product.price * quantity).toFixed(2)}
               </Box>
             </Flex>

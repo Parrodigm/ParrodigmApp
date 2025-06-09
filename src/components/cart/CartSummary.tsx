@@ -29,32 +29,26 @@ export const CartSummary = ({ cartProducts }: { cartProducts: { product: Product
   }, [cartProducts]);
 
   return (
-    <Box bg="white" p="2" width="full" mt="2" mb="2">
+    <Box padding="1em 1.5em" backgroundColor="#ffffff" width="full" mt="2" mb="2" borderRadius="0.8em">
       <Flex justify="start" mb="1">
-        <Box color="#6294FF" fontSize="20px">
-          SubTotal:&nbsp;
-        </Box>
-        <Box fontWeight="normal" color="#6294FF" fontSize="20px">
+        <Box fontSize="1em">SubTotal:&nbsp;</Box>
+        <Box fontWeight="normal" fontSize="1em">
           ${subtotal.toFixed(2)}
         </Box>
       </Flex>
 
       <Flex justify="start" mb="1">
-        <Box color="#6294FF" fontSize="20px">
-          Shipping Fee:&nbsp;
-        </Box>
-        <Box fontWeight="normal" color="#6294FF" fontSize="20px">
+        <Box fontSize="1em">Shipping Fee:&nbsp;</Box>
+        <Box fontWeight="normal" fontSize="1em">
           ${shipping.toFixed(2)}
         </Box>
       </Flex>
 
-      {/* <Divider my="3" borderColor="#E2E8F0" /> */}
-
       <Flex justify="start" mb="1" mt="2">
-        <Box color="#6294FF" fontSize="30px" fontWeight="bold">
+        <Box fontSize="1.5em" fontWeight="bold">
           Total:&nbsp;
         </Box>
-        <Box fontWeight="bold" color="#6294FF" fontSize="30px">
+        <Box fontWeight="bold" fontSize="1.5em">
           ${total.toFixed(2)}
         </Box>
       </Flex>

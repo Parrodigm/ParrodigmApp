@@ -34,7 +34,7 @@ export default function RootLayout({
       <body
         className={
           css({
-            backgroundColor: "#808080",
+            backgroundColor: "#000000",
             height: "100%",
             width: "100%",
           }) + ` ${geistSans.variable} ${geistMono.variable}`
@@ -57,7 +57,7 @@ export default function RootLayout({
         >
           <Header />
           <div className={css({ flex: 1, display: "flex", overflow: "hidden" })}>{children}</div>
-          <ConversationViewer css={{ height: "15em" }} />
+          <ConversationViewer css={{ height: "10em" }} />
         </div>
       </body>
     </html>

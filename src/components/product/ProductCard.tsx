@@ -8,7 +8,7 @@ import { Product } from "@/src/types/types";
 export const ProductCard = ({ index, product }: { index: number; product: Product }) => {
   return (
     <Link href={`/product/${product.id}`}>
-      <Box bg="white" overflow="hidden" borderRadius="xl" width="100%" height={260} shadow="0 2px 1px 0 rgba(0, 0, 0, 0.13)">
+      <Box bg="white" overflow="hidden" borderRadius="xl" width="100%" shadow="0 2px 1px 0 rgba(0, 0, 0, 0.13)">
         <Box position="relative" width="100%" height="175px" overflow="hidden">
           <Image
             src={product.images[0].url}
@@ -40,15 +40,15 @@ export const ProductCard = ({ index, product }: { index: number; product: Produc
               {index + 1}
             </Flex>
             <VStack alignItems="start" gap="0">
-              <Box fontWeight="600" fontSize="15px" lineHeight="1.2" color="#6294FF" width="100%" display="block">
-                {product.displayName.length > 10 ? product.displayName.slice(0, 25) + "..." : product.displayName}
+              <Box fontWeight="600" fontSize="15px" padding="0.3em" lineHeight="1.2" width="100%" display="block">
+                {product.displayName}
               </Box>
               <Box px="3px">
                 <StarRate rating={product.rating} />
               </Box>
             </VStack>
           </HStack>
-          <Box fontSize="16px" fontWeight="bold" color="#6294FF" alignSelf="flex-end" mr="2">
+          <Box fontSize="16px" padding="0.2em" fontWeight="bold" color="#c30010" alignSelf="flex-end" mr="2">
             ${product.price.toFixed(2)}
           </Box>
         </VStack>

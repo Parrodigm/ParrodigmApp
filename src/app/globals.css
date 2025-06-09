@@ -1,4 +1,4 @@
-/* @keyframes gradientMove {
+@keyframes gradientMove {
   0% {
     background-position: 0% 50%;
   }
@@ -11,26 +11,12 @@
 }
 
 .app-background-animated {
-  background: linear-gradient(
-    315deg,
-    #fffff1,
-    #1883e0,  #ffffff,
-    #dae6ff,
-    #cbeeff,
-    #aec8ff,
-    #d7f2ff,
-    #f1f3ff
-  );
+  background: linear-gradient(315deg, #fffff1, #1883e0, #ffffff, #dae6ff, #cbeeff, #aec8ff, #d7f2ff, #f1f3ff);
   background-size: 300% 300%;
-  animation: gradientMove 20s ease infinite;
-} */
+  background-position: 50% 50%;
+}
 
 @layer reset, base, tokens, recipes, utilities;
-
-/* Swiper custom styles */
-.product-swiper {
-  --swiper-theme-color: #6294FF !important;
-}
 
 .product-swiper .swiper-pagination {
   position: absolute;
@@ -61,10 +47,6 @@
   /* margin-bottom: 10px; */
 }
 
-.product-swiper .swiper-pagination-bullet-active {
-  background-color: #6294FF;
-}
-
 .product-swiper .swiper-button-next,
 .product-swiper .swiper-button-prev {
   width: 26px;
@@ -80,8 +62,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 23px !important;
+  font-size: 18px !important;
   font-weight: 900 !important;
-  text-shadow: 0px 0px 1px #6294FF, 0px 0px 1px #6294FF, 0px 0px 1px #6294FF;
-  -webkit-text-stroke: 1px #6294FF;
+  text-shadow:
+    0px 0px 1px #000000,
+    0px 0px 1px #000000,
+    0px 0px 1px #000000;
+  -webkit-text-stroke: 1px #000000;
+}
+
+* {
+  font-family: sans-serif;
 }

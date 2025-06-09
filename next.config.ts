@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "image.chewy.com",
+        hostname: "cdn.shopify.com",
         port: "",
         pathname: "/**",
       },

@@ -30,7 +30,7 @@ export const ButtonBar = (props: ButtonBarProps) => {
   return (
     <HStack justify="center">
       {isCart && ( // 장바구니에 있는 버튼
-        <Button onClick={props.onBuy} style={{ width: "70%" }}>
+        <Button onClick={props.onBuy} style={{ width: "100%" }}>
           Buy Now
         </Button>
       )}
@@ -46,7 +46,6 @@ export const ButtonBar = (props: ButtonBarProps) => {
           Add to Cart
         </Button>
       )}
-      <ToastContainer position="top-center" />
 
       <Box position="relative">
         {" "}

@@ -82,13 +82,12 @@ const StyledButton = styled("button", {
         },
       },
       oval: {
-        backgroundColor: "#A0BEFF",
+        backgroundColor: "#000000",
         color: "white",
         borderRadius: "full",
         fontSize: "0.75rem",
         fontWeight: "600",
         width: "15px",
-        height: "10px",
         padding: "0",
         _hover: {
           backgroundColor: "#6294FF",
@@ -122,7 +121,7 @@ export const Button = ({ variant, ...props }: ButtonProps) => {
   if (variant === "trash") {
     return (
       <StyledButton variant="trash" {...props}>
-        <Trash />
+        <Trash fill="#000000" />
       </StyledButton>
     );
   }

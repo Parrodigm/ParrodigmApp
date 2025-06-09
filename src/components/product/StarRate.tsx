@@ -5,7 +5,7 @@ import { Box } from "@/styled-system/jsx";
 // type StarType = "full" | "half" | "empty";
 type StarType = "full" | "empty";
 const Star = ({ type }: { type: StarType }) => {
-  const color = "#6294FF";
+  const color = "	#bf9b30";
   return (
     <Box color={color} fontSize="12px" lineHeight="1">
       {/* {type === "full" ? "★" : type === "half" ? <HalfStar /> : "☆"} */}

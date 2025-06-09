@@ -15,6 +15,9 @@ import { usePageController } from "@/src/hooks/usePageController";
 
 import { Product } from "@/src/types/types";
 
+import { PRODUCTS } from "@/src/app/products";
+import VoiceText from "@/src/components/VoiceText";
+
 export default function Page() {
   const params = useParams();
 
@@ -34,12 +37,7 @@ export default function Page() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products?id=${params.id}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch product");
-        }
-        const data = await response.json();
-        setProduct(data[0]);
+        setProduct(PRODUCTS.find((product) => product.id === Number(params.id)));
       } catch (error) {
         console.error("Error fetching product:", error);
       } finally {
@@ -51,11 +49,7 @@ export default function Page() {
   }, [params.id]);
 
   if (loading) {
-    return (
-      <Flex direction="column" gap="28px" align="center">
-        <Text>Loading...</Text>
-      </Flex>
-    );
+    return <Flex direction="column" gap="28px" align="center"></Flex>;
   }
 
   if (!product) {
@@ -67,12 +61,12 @@ export default function Page() {
   }
 
   return (
-    <Flex padding="0 20px" direction="column" gap="1em">
+    <Flex padding="0 20px 20px 20px" direction="column" gap="1em">
       <ProductDetailCard key={product.id} product={product} />
-      <div className={css({ flex: 1, fontSize: "1.2em", fontWeight: "bold", textAlign: "center", color: "#6294FF", overflow: "scroll" })}>
-        {product.description}
+      <div className={css({ flex: 1 })}>
+        <VoiceText text={"Beautiful. Adding to cart. Oh, and good news — it’s available for same-day delivery."} fontSize="1.2em" />
       </div>
-      <ButtonBar type="default" onBuy={() => {}} onAddToCart={addItemToCart} onBasket={showCart} cartCount={getCartItemCount()} />
+      <ButtonBar type="default" onBuy={() => {}} onAddToCart={addItemToCart} onBasket={showCart} cartCount={1} />
     </Flex>
   );
 }
